@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Diagnostics;
+using Chef.Models;
+using Chef.Interfaces;
 
 namespace Chef
 {
@@ -20,9 +23,16 @@ namespace Chef
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        IDatabaseDriver databaseDriver;
+        public MainWindow(IDatabaseDriver databaseDriver)
         {
+            this.databaseDriver = databaseDriver;
             InitializeComponent();
+            MessageBox.Show(this.databaseDriver.init());
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
