@@ -1,12 +1,7 @@
 ﻿using Chef.Interfaces;
 using Chef.Models;
+using Chef.Models.Database;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Chef
@@ -26,6 +21,7 @@ namespace Chef
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IDatabaseDriver, DatabaseDriver>();
+            services.AddScoped<DatabaseContext, DatabaseContext>();
             services.AddSingleton<MainWindow>();
         }
         private void OnStartup(object sender, StartupEventArgs e)

@@ -8,12 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button HorizontalAlignment="Left"
-                Margin="709,400,0,0"
+                Margin="10,10,0,0"
                 VerticalAlignment="Top"
                 Height="24"
                 Width="81" 
-                Click="Button_Click">
-            Exit
-        </Button>
+                Click="Button_Click" Content="Load"/>
     </Grid>
 </Window>
