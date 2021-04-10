@@ -1,7 +1,9 @@
 ﻿using Chef.Interfaces;
 using Chef.Models;
 using Chef.Models.Database;
+using Chef.Pages;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Windows;
 
 namespace Chef
@@ -11,23 +13,26 @@ namespace Chef
     /// </summary>  
     public partial class App : Application
     {
-        private readonly ServiceProvider _serviceProvider;
+        private readonly ServiceProvider serviceProvider;
         public App()
         {
             var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-            _serviceProvider = serviceCollection.BuildServiceProvider();
+            this.serviceProvider =  ConfigureServices(serviceCollection);
         }
-        private void ConfigureServices(IServiceCollection services)
+        private ServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IDatabaseDriver, DatabaseDriver>();
-            services.AddScoped<DatabaseContext, DatabaseContext>();
-            services.AddSingleton<MainWindow>();
+            services.AddSingleton<DatabaseContext, DatabaseContext>();
+            services.AddSingleton<IWarehousePageModel, WarehousePage>();
+
+            services.AddScoped<MainWindow>();
+
+            return services.BuildServiceProvider();
         }
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            var mainWindow = _serviceProvider.GetService<MainWindow>();
+            var mainWindow = this.serviceProvider.GetService<MainWindow>();
             mainWindow.Show();
         }
+
     }
 }

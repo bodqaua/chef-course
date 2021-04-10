@@ -13,5 +13,7 @@
                 Height="24"
                 Width="81" 
                 Click="Button_Click" Content="Load"/>
+        <Button x:Name="createTestEntities" Content="Create test entities" HorizontalAlignment="Left" Margin="96,10,0,0" VerticalAlignment="Top" Height="24" Width="105" Click="createTestEntities_Click"/>
+        <Button x:Name="warehouse" Content="Warehouse" HorizontalAlignment="Left" Margin="206,10,0,0" VerticalAlignment="Top" Height="24" Width="109" Click="warehouse_Click"/>
     </Grid>
 </Window>

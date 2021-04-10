@@ -13,7 +13,7 @@ namespace Chef.Models.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=database;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=(LocalDB)\\MSSQLLocalDB;Database=database;Trusted_Connection=True;Connect Timeout=30");
         }
     }
 }
