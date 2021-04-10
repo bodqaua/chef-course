@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Navigation;
 using Chef.Models;
 using Chef.Models.Database;
 using Chef.Pages;
+using Chef.ViewModels;
 
 namespace Chef
 {
@@ -15,9 +17,13 @@ namespace Chef
     public partial class MainWindow : Window
     {
         private DatabaseContext databaseContext;
-        public MainWindow(DatabaseContext databaseContext)
+        private ViewModelFactory viewModelFactory;
+        public MainWindow(DatabaseContext databaseContext,
+                          ViewModelFactory viewModelFactory)
         {
             this.databaseContext = databaseContext;
+            this.viewModelFactory = viewModelFactory;
+
             InitializeComponent();
         }
 
@@ -50,9 +56,13 @@ namespace Chef
 
         private void warehouse_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService nav = NavigationService.GetNavigationService(this);
-            nav.Navigate(new Uri("Pages/WarehousePage.xaml", UriKind.RelativeOrAbsolute));
-            //this.Content = new WarehousePage();
+            this.redirect();
+        }
+
+        private void redirect()
+        {
+            this.Content = new Frame { Content = this.viewModelFactory.createWarehousePage() };
+
         }
     }
 }

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Chef.Models;
 using Chef.Models.Database;
+using Chef.ViewModels;
 
 namespace Chef.Pages
 {
@@ -21,16 +22,22 @@ namespace Chef.Pages
     /// Interaction logic for Warehouse.xaml
     /// </summary>
 
-    public partial class WarehousePage : Page, IWarehousePageModel
+    public partial class WarehousePage : Page
     {
         DatabaseContext databaseContext;
+        ViewModelFactory viewModelFactory;
+
         List<Product> products;
-        public WarehousePage(DatabaseContext databaseContext)
+
+        public WarehousePage(DatabaseContext databaseContext,
+                             ViewModelFactory viewModelFactory)
         {
             InitializeComponent();
             this.databaseContext = databaseContext;
+            this.viewModelFactory = viewModelFactory;
             this.loadProducts();
         }
+
 
         private void generateDataGrid()
         {
@@ -40,10 +47,12 @@ namespace Chef.Pages
         private void loadProducts()
         {
             this.products = this.databaseContext.Products.ToList<Product>();
-            foreach(Product product in this.products)
+            foreach (Product product in this.products)
             {
                 MessageBox.Show(product.Name);
             }
+            this.Content = new Frame { Content = this.viewModelFactory.createEmptyPage() };
+
         }
     }
 }
