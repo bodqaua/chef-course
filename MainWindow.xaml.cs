@@ -25,6 +25,7 @@ namespace Chef
             this.viewModelFactory = viewModelFactory;
 
             InitializeComponent();
+            this.redirect();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
