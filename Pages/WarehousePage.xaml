@@ -9,12 +9,11 @@
       Title="Warehouse">
 
     <Grid Background="White">
-        <DataGrid Name="WarehouseDataGrid" 
-                  AutoGenerateColumns="True">
+        <DataGrid Name="WarehouseDataGrid" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name"/>
-                <DataGridTextColumn Header="Price"/>
-                <DataGridTextColumn Header="Quantity"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
+                <DataGridTextColumn Binding="{Binding Price}" Header="Price"/>
+                <DataGridTextColumn Binding="{Binding Quantity}" Header="Quantity"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

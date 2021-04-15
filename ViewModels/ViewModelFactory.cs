@@ -10,14 +10,9 @@ namespace Chef.ViewModels
         {
             this.databaseContext = databaseContext;
         }
-        public WarehousePage createWarehousePage()
+        public WarehouseViewModel createWarehousePage()
         {
-            return new WarehousePage(this.databaseContext, this);
-        }
-
-        public EmptyPage createEmptyPage()
-        {
-            return new EmptyPage();
+            return new WarehouseViewModel(this.databaseContext, this);
         }
     }
 }

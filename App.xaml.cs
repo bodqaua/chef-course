@@ -23,7 +23,6 @@ namespace Chef
         private IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<DatabaseContext>();
-            services.AddSingleton<WarehousePage>();
             services.AddSingleton<ViewModelFactory>(p =>
                 new ViewModelFactory(new DatabaseContext())
             );

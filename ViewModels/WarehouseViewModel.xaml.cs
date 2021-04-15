@@ -19,30 +19,19 @@ using Chef.Models;
 using Chef.Models.Database;
 using Chef.ViewModels;
 
-namespace Chef.Pages
+namespace Chef.ViewModels
 {
-    /// <summary>
-    /// Interaction logic for Warehouse.xaml
-    /// </summary>
-
-    public partial class WarehousePage : Page
+    public partial class WarehouseViewModel : Page
     {
         private DatabaseContext databaseContext;
-        //private ViewModelFactory viewModelFactory;
 
-        public DataTable dataTable { get; private set; }
-
-        public WarehousePage(DatabaseContext databaseContext,
+        public WarehouseViewModel(DatabaseContext databaseContext,
                              ViewModelFactory viewModelFactory)
         {
             InitializeComponent();
             this.databaseContext = databaseContext;
-            //this.viewModelFactory = viewModelFactory;
-            this.dataTable = new DataTable();
             this.loadProducts();
         }
-
-
         private void loadProducts()
         {
             WarehouseDataGrid.ItemsSource = this.databaseContext.Products.ToList<Product>(); ;
