@@ -26,7 +26,7 @@
                 Cursor="Hand"
                 Grid.Column="1" 
                 HorizontalAlignment="Center" 
-                VerticalAlignment="Top" Width="140" Margin="0,12,0,0" >
+                VerticalAlignment="Top" Width="140" Margin="0,12,0,0" Click="addStuffs_Click" >
             <Button.Template>
                 <ControlTemplate>
                     <Border CornerRadius="2"

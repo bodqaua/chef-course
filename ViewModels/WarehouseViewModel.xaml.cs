@@ -24,17 +24,25 @@ namespace Chef.ViewModels
     public partial class WarehouseViewModel : Page
     {
         private DatabaseContext databaseContext;
+        private ViewModelFactory viewModelFactory;
 
         public WarehouseViewModel(DatabaseContext databaseContext,
                              ViewModelFactory viewModelFactory)
         {
             InitializeComponent();
             this.databaseContext = databaseContext;
+            this.viewModelFactory = viewModelFactory;
             this.loadProducts();
         }
         private void loadProducts()
         {
             WarehouseDataGrid.ItemsSource = this.databaseContext.Products.ToList<Product>(); ;
+        }
+
+        private void addStuffs_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new Frame { Content = this.viewModelFactory.createWarehouseAddPage() };
+
         }
     }
 }

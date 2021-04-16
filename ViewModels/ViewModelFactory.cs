@@ -1,5 +1,6 @@
 ﻿using Chef.Models.Database;
 using Chef.Pages;
+using Chef.ViewModels.WarehouseAdd;
 
 namespace Chef.ViewModels
 {
@@ -13,6 +14,11 @@ namespace Chef.ViewModels
         public WarehouseViewModel createWarehousePage()
         {
             return new WarehouseViewModel(this.databaseContext, this);
+        }
+
+        public WarehouseAddViewModel createWarehouseAddPage()
+        {
+            return new WarehouseAddViewModel(this.databaseContext, this);
         }
     }
 }

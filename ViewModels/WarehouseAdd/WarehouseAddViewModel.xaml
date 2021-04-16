@@ -1,0 +1,100 @@
+﻿<Page x:Class="Chef.ViewModels.WarehouseAdd.WarehouseAddViewModel"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Chef.ViewModels.WarehouseAdd"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="WarehouseAddViewModel">
+
+    <Grid Background="#FFFFFF">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"></RowDefinition>
+            <RowDefinition Height="30*"></RowDefinition>
+            <RowDefinition Height="5*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <StackPanel VerticalAlignment="Center">
+                <Label Margin="12,0,0,0" VerticalAlignment="Bottom" Content="Название"/>
+                <TextBox x:Name="Name"
+                     Width="120"
+                     HorizontalAlignment="Left" 
+                     VerticalAlignment="Bottom" 
+                     Margin="12,0,0,0" 
+                     Padding="6,7,6,7" 
+                     BorderBrush="#FFCED4DA">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+            </StackPanel>
+
+            <StackPanel VerticalAlignment="Center">
+                <Label Margin="12,0,0,0" VerticalAlignment="Bottom" Content="Цена"/>
+                <TextBox x:Name="Price"
+                     Width="120"
+                     HorizontalAlignment="Left" 
+                     VerticalAlignment="Center" 
+                     Margin="12,0,0,0" 
+                     Padding="6,7,6,7" 
+                     BorderBrush="#FFCED4DA">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center">
+                <Label Margin="12,0,0,0"
+                       VerticalAlignment="Bottom"
+                       Content="Количество"/>
+                <TextBox x:Name="Quantity"
+                     Width="120"
+                     HorizontalAlignment="Left" 
+                     VerticalAlignment="Center" 
+                     Margin="12,0,0,0" 
+                     Padding="6,7,6,7" 
+                     BorderBrush="#FFCED4DA">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
+            </StackPanel>
+            <Button x:Name="addHandler"
+                    Cursor="Hand"
+                    Width="120"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom" 
+                    Margin="12,0,0,14" Click="addHandler_Click" >
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border CornerRadius="4"
+                            Background="#00897b"
+                                
+                            Padding="12,8,12,8" BorderBrush="#FF00897B">
+                            <TextBlock Text="Добавить"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </DockPanel>
+        <DataGrid Grid.Row="1" Name="WarehouseDataGrid" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="132" Binding="{Binding Name}" Header="Name"/>
+                <DataGridTextColumn Width="132" Binding="{Binding Price}" Header="Price"/>
+                <DataGridTextColumn Width="132" Binding="{Binding Quantity}" Header="Quantity"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+</Page>
