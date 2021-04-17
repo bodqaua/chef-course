@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Chef.Validators;
+using Chef.Validators.InputValidators;
 
 namespace Chef.ViewModels.WarehouseAdd
 {
@@ -31,13 +33,24 @@ namespace Chef.ViewModels.WarehouseAdd
             this.databaseContext = databaseContext;
             this.viewModelFactory = viewModelFactory;
             InitializeComponent();
+            this.DataContext = new FormGroup();
         }
 
         private void addHandler_Click(object sender, RoutedEventArgs e)
         {
-            string name = Name.Text;
-            double price = Convert.ToDouble(Price.Text);
-            double quantity = Convert.ToDouble(Quantity.Text);
         }
+    }
+
+    public class FormGroup
+    {
+        public ITextBoxGroup Name { get; set; } = new TextBoxGroup
+        {
+            Name = "Name",
+            Value = "",
+            validators = new List<AbstractValidator>()
+            {
+                new RequiredValidator()
+            }
+        };
     }
 }

@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Chef.ViewModels.WarehouseAdd"
+      xmlns:validator="clr-namespace:Chef.Validators"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="WarehouseAddViewModel">
@@ -14,10 +15,10 @@
             <RowDefinition Height="30*"></RowDefinition>
             <RowDefinition Height="5*"></RowDefinition>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0">
-            <StackPanel VerticalAlignment="Center">
+        <DockPanel Grid.Row="0" VerticalAlignment="Top">
+            <StackPanel VerticalAlignment="Top">
                 <Label Margin="12,0,0,0" VerticalAlignment="Bottom" Content="Название"/>
-                <TextBox x:Name="Name"
+                <TextBox 
                      Width="120"
                      HorizontalAlignment="Left" 
                      VerticalAlignment="Bottom" 
@@ -29,12 +30,28 @@
                             <Setter Property="CornerRadius" Value="4"/>
                         </Style>
                     </TextBox.Resources>
+                    <TextBox.Text>
+                        <Binding Path="Name.Value" UpdateSourceTrigger="PropertyChanged">
+                            
+                            <Binding.ValidationRules>
+                                <validator:TextBoxValidator ValidationStep="RawProposedValue"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
                 </TextBox>
             </StackPanel>
 
-            <StackPanel VerticalAlignment="Center">
+            <!--<StackPanel VerticalAlignment="Top">
                 <Label Margin="12,0,0,0" VerticalAlignment="Bottom" Content="Цена"/>
-                <TextBox x:Name="Price"
+                <TextBox
                      Width="120"
                      HorizontalAlignment="Left" 
                      VerticalAlignment="Center" 
@@ -46,13 +63,20 @@
                             <Setter Property="CornerRadius" Value="4"/>
                         </Style>
                     </TextBox.Resources>
+                    <TextBox.Text>
+                        <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validator:TextBoxValidator/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
                 </TextBox>
             </StackPanel>
-            <StackPanel VerticalAlignment="Center">
+            <StackPanel VerticalAlignment="Top">
                 <Label Margin="12,0,0,0"
                        VerticalAlignment="Bottom"
                        Content="Количество"/>
-                <TextBox x:Name="Quantity"
+                <TextBox Text="{Binding Path=Quantity}"
                      Width="120"
                      HorizontalAlignment="Left" 
                      VerticalAlignment="Center" 
@@ -65,28 +89,29 @@
                         </Style>
                     </TextBox.Resources>
                 </TextBox>
-            </StackPanel>
-            <Button x:Name="addHandler"
+            </StackPanel>-->
+            <StackPanel VerticalAlignment="Bottom">
+                <Button x:Name="addHandler"
                     Cursor="Hand"
                     Width="120"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom" 
-                    Margin="12,0,0,14" Click="addHandler_Click" >
-                <Button.Template>
-                    <ControlTemplate>
-                        <Border CornerRadius="4"
+                    VerticalAlignment="Top" 
+                    Margin="12,0,0,0" Click="addHandler_Click" >
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border CornerRadius="4"
                             Background="#00897b"
-                                
                             Padding="12,8,12,8" BorderBrush="#FF00897B">
-                            <TextBlock Text="Добавить"
+                                <TextBlock Text="Добавить"
                                    Foreground="White"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    />
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
         </DockPanel>
         <DataGrid Grid.Row="1" Name="WarehouseDataGrid" AutoGenerateColumns="False">
             <DataGrid.Columns>
