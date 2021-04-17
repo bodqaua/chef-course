@@ -29,12 +29,16 @@
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="4"/>
                         </Style>
+                        <validator:BindingProxy Data="{Binding}" x:Key="proxy"/>
                     </TextBox.Resources>
                     <TextBox.Text>
                         <Binding Path="Name.Value" UpdateSourceTrigger="PropertyChanged">
-                            
                             <Binding.ValidationRules>
-                                <validator:TextBoxValidator ValidationStep="RawProposedValue"/>
+                                <validator:TextBoxValidator Type="int">
+                                <validator:TextBoxValidator.Wrapper>
+                                        <validator:Wrapper Validators="{Binding Path=Data.Name.Validators, Source={StaticResource proxy}}"/>
+                                    </validator:TextBoxValidator.Wrapper>
+                                </validator:TextBoxValidator>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>

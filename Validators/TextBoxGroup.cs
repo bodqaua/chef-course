@@ -7,6 +7,6 @@ namespace Chef.Validators
     {
         public string Name { get; set; }
         public object Value { get; set; }
-        public List<AbstractValidator> validators { get; set; }
+        public List<AbstractValidator> Validators { get; set; }
     }
 }

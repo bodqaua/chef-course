@@ -9,5 +9,6 @@ namespace Chef.Validators.InputValidators
     public abstract class AbstractValidator
     {
         public abstract bool checkControlValidity(object value);
+        public abstract string getMessage();
     }
 }

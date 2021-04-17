@@ -6,7 +6,7 @@ namespace Chef.Validators
     public interface ITextBoxGroup
     {
         string Name { get; set; }
-        List<AbstractValidator> validators { get; set; }
+        List<AbstractValidator> Validators { get; set; }
         object Value { get; set; }
     }
 }

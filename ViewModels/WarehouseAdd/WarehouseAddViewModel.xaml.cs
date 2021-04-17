@@ -47,9 +47,10 @@ namespace Chef.ViewModels.WarehouseAdd
         {
             Name = "Name",
             Value = "",
-            validators = new List<AbstractValidator>()
+            Validators = new List<AbstractValidator>()
             {
-                new RequiredValidator()
+                new RequiredValidator(),
+                new MinValidator(0)
             }
         };
     }
