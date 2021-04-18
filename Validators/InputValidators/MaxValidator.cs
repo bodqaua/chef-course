@@ -3,30 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace Chef.Validators.InputValidators
 {
-    class MinValidator : AbstractValidator
+    class MaxValidator : AbstractValidator
     {
-        private int min;
-        public MinValidator(int min)
+        private int max;
+        public MaxValidator(int max)
         {
-            this.min = min;
+            this.max = max;
         }
 
         public override bool checkControlValidity(object value)
         {
-            if (!Double.TryParse(value.ToString(), out double res))
+            if (!Int32.TryParse(value.ToString(), out int res))
             {
                 return false;
             }
-            return Double.Parse(value.ToString()) >= this.min;
+            return Int32.Parse(value.ToString()) <= this.max;
         }
 
         public override string getMessage()
         {
-            return "Number must be greater than " + this.min;
+            return "Number must be less than " + this.max;
         }
     }
 }

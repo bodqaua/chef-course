@@ -19,6 +19,7 @@
             <StackPanel VerticalAlignment="Top">
                 <Label Margin="12,0,0,0" VerticalAlignment="Bottom" Content="Название"/>
                 <TextBox 
+                     Name="Name"
                      Width="120"
                      HorizontalAlignment="Left" 
                      VerticalAlignment="Bottom" 
@@ -32,10 +33,10 @@
                         <validator:BindingProxy Data="{Binding}" x:Key="proxy"/>
                     </TextBox.Resources>
                     <TextBox.Text>
-                        <Binding Path="Name.Value" UpdateSourceTrigger="PropertyChanged">
+                        <Binding Path="Name.Value" UpdateSourceTrigger="PropertyChanged"  ValidatesOnDataErrors="True">
                             <Binding.ValidationRules>
-                                <validator:TextBoxValidator Type="int">
-                                <validator:TextBoxValidator.Wrapper>
+                                <validator:TextBoxValidator>
+                                    <validator:TextBoxValidator.Wrapper>
                                         <validator:Wrapper Validators="{Binding Path=Data.Name.Validators, Source={StaticResource proxy}}"/>
                                     </validator:TextBoxValidator.Wrapper>
                                 </validator:TextBoxValidator>
@@ -52,10 +53,10 @@
                     </Validation.ErrorTemplate>
                 </TextBox>
             </StackPanel>
-
-            <!--<StackPanel VerticalAlignment="Top">
+            <StackPanel VerticalAlignment="Top">
                 <Label Margin="12,0,0,0" VerticalAlignment="Bottom" Content="Цена"/>
                 <TextBox
+                     Name="Price"
                      Width="120"
                      HorizontalAlignment="Left" 
                      VerticalAlignment="Center" 
@@ -66,21 +67,35 @@
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="4"/>
                         </Style>
+                        <validator:BindingProxy Data="{Binding}" x:Key="proxy"/>
                     </TextBox.Resources>
                     <TextBox.Text>
-                        <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
+                        <Binding Path="Price.Value" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
-                                <validator:TextBoxValidator/>
+                                <validator:TextBoxValidator Type="double">
+                                    <validator:TextBoxValidator.Wrapper>
+                                        <validator:Wrapper Validators="{Binding Path=Data.Price.Validators, Source={StaticResource proxy}}"/>
+                                    </validator:TextBoxValidator.Wrapper>
+                                </validator:TextBoxValidator>
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
                 </TextBox>
             </StackPanel>
             <StackPanel VerticalAlignment="Top">
                 <Label Margin="12,0,0,0"
                        VerticalAlignment="Bottom"
                        Content="Количество"/>
-                <TextBox Text="{Binding Path=Quantity}"
+                <TextBox 
+                     Name="Quantity"
                      Width="120"
                      HorizontalAlignment="Left" 
                      VerticalAlignment="Center" 
@@ -91,9 +106,29 @@
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="4"/>
                         </Style>
+                        <validator:BindingProxy Data="{Binding}" x:Key="proxy"/>
                     </TextBox.Resources>
+                    <TextBox.Text>
+                        <Binding Path="Quantity.Value" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validator:TextBoxValidator Type="int">
+                                    <validator:TextBoxValidator.Wrapper>
+                                        <validator:Wrapper Validators="{Binding Path=Data.Quantity.Validators, Source={StaticResource proxy}}"/>
+                                    </validator:TextBoxValidator.Wrapper>
+                                </validator:TextBoxValidator>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
                 </TextBox>
-            </StackPanel>-->
+            </StackPanel>
             <StackPanel VerticalAlignment="Bottom">
                 <Button x:Name="addHandler"
                     Cursor="Hand"
@@ -114,6 +149,21 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Name}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Price}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Quantity}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
                 </Button>
             </StackPanel>
         </DockPanel>

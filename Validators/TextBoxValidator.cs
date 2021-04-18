@@ -45,7 +45,7 @@ namespace Chef.Validators
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             List<AbstractValidator> validators = Wrapper.Validators;
-            bool isMainValid = true;
+            bool isTypeValid = true;
             string invalidMessage = "";
 
             if (!string.IsNullOrEmpty(this.Type))
@@ -53,7 +53,11 @@ namespace Chef.Validators
                 switch (this.Type)
                 {
                     case "int":
-                        isMainValid = Int32.TryParse(value.ToString(), out int res);
+                        isTypeValid = Int32.TryParse(value.ToString(), out int intRes);
+                        invalidMessage = "incorrect number";
+                        break;
+                    case "double":
+                        isTypeValid = Double.TryParse(value.ToString(), out double doubleRes);
                         invalidMessage = "incorrect number";
                         break;
                     default:
@@ -61,7 +65,7 @@ namespace Chef.Validators
                 }
             }
 
-            if(!isMainValid)
+            if(!isTypeValid)
             {
                 return this.getValidationResult(false, invalidMessage);
             }

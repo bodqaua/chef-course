@@ -11,7 +11,6 @@ namespace Chef.Validators.InputValidators
     {
         public override bool checkControlValidity(object value)
         {
-            MessageBox.Show(value.ToString().Length.ToString());
             return value.ToString().Length > 0;
         }
 
