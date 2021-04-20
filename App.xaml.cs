@@ -24,9 +24,9 @@ namespace Chef
         private IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<DatabaseContext>();
-            services.AddScoped<Shared.AbstractController>();
+            services.AddScoped<ValidationController>();
             services.AddSingleton(p =>
-            new ViewModelFactory(new DatabaseContext(), new Shared.AbstractController())
+            new ViewModelFactory(new DatabaseContext(), new ValidationController())
             );
 
             services.AddScoped<MainWindow>();

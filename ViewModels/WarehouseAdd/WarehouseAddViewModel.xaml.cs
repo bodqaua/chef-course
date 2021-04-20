@@ -29,23 +29,23 @@ namespace Chef.ViewModels.WarehouseAdd
     {
         private DatabaseContext databaseContext;
         private ViewModelFactory viewModelFactory;
-        private AbstractController abstractController;
+        private ValidationController validationController;
         private List<Product> products = new List<Product>();
         private FormGroup formGroup = new FormGroup();
-        public WarehouseAddViewModel(AbstractController abstractController,
+        public WarehouseAddViewModel(ValidationController validationController,
                                      DatabaseContext databaseContext,
                                      ViewModelFactory viewModelFactory)
         {
             this.databaseContext = databaseContext;
             this.viewModelFactory = viewModelFactory;
-            this.abstractController = abstractController;
+            this.validationController = validationController;
             InitializeComponent();
             this.DataContext = this.formGroup;
         }
 
         private void addHandler_Click(object sender, RoutedEventArgs e)
         {
-            if (!this.abstractController.isFormValid(this, this.formGroup.controls))
+            if (!this.validationController.isFormValid(this, this.formGroup.controls))
             {
                 return;
             }

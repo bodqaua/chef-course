@@ -8,12 +8,12 @@ namespace Chef.ViewModels
     public class ViewModelFactory
     {
         private DatabaseContext databaseContext;
-        private AbstractController abstractController;
+        private ValidationController validationController;
         public ViewModelFactory(DatabaseContext databaseContext,
-                                AbstractController abstractController)
+                                ValidationController validationController)
         {
             this.databaseContext = databaseContext;
-            this.abstractController = abstractController;
+            this.validationController = validationController;
         }
         public WarehouseViewModel createWarehousePage()
         {
@@ -22,7 +22,7 @@ namespace Chef.ViewModels
 
         public WarehouseAddViewModel createWarehouseAddPage()
         {
-            return new WarehouseAddViewModel(this.abstractController, this.databaseContext, this);
+            return new WarehouseAddViewModel(this.validationController, this.databaseContext, this);
         }
     }
 }

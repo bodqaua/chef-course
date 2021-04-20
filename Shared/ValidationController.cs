@@ -13,7 +13,7 @@ using System.Windows.Controls;
 namespace Chef.Shared
 {
 
-    public class AbstractController: Window
+    public class ValidationController
     {
         public bool isValidatorHasError(object value, List<AbstractValidator> validators)
         {
