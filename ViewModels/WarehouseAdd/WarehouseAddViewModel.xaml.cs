@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 using Chef.Validators;
 using Chef.Validators.InputValidators;
 using System.Reflection;
+using Chef.Shared;
+using Chef.Interfaces;
 
 namespace Chef.ViewModels.WarehouseAdd
 {
@@ -27,58 +29,32 @@ namespace Chef.ViewModels.WarehouseAdd
     {
         private DatabaseContext databaseContext;
         private ViewModelFactory viewModelFactory;
+        private AbstractController abstractController;
         private List<Product> products = new List<Product>();
         private FormGroup formGroup = new FormGroup();
-        private TextBox textbox;
-        public WarehouseAddViewModel(DatabaseContext databaseContext,
+        public WarehouseAddViewModel(AbstractController abstractController,
+                                     DatabaseContext databaseContext,
                                      ViewModelFactory viewModelFactory)
         {
             this.databaseContext = databaseContext;
             this.viewModelFactory = viewModelFactory;
+            this.abstractController = abstractController;
             InitializeComponent();
             this.DataContext = this.formGroup;
         }
 
         private void addHandler_Click(object sender, RoutedEventArgs e)
         {
-            if(!this.IsFormValid(this.formGroup))
+            if (!this.abstractController.isFormValid(this, this.formGroup.controls))
             {
                 return;
             }
 
             MessageBox.Show("Form Valid");
         }
-
-        private bool IsFormValid(FormGroup formGroup)
-        {
-            bool isValid = true;
-            foreach (ITextBoxGroup control in formGroup.controls)
-            {
-                textbox = (TextBox)FindName(control.Name);
-                textbox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-
-                if (!this.isValidatorHasError(textbox.Text, control.Validators))
-                {
-                    isValid = false;
-                }
-            };
-            return isValid;
-        }
-
-        private bool isValidatorHasError(object value, List<AbstractValidator> validators)
-        {
-            foreach (AbstractValidator validator in validators)
-            {
-                if (!validator.checkControlValidity(value))
-                {
-                    return false;
-                }
-            };
-            return true;
-        }
     }
 
-    public class FormGroup
+    public class FormGroup: AbtractFormGroup
     {
         public ITextBoxGroup Name { get; set; } = new TextBoxGroup
         {

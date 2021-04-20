@@ -1,5 +1,6 @@
 ﻿using Chef.Models.Database;
 using Chef.Pages;
+using Chef.Shared;
 using Chef.ViewModels.WarehouseAdd;
 
 namespace Chef.ViewModels
@@ -7,9 +8,12 @@ namespace Chef.ViewModels
     public class ViewModelFactory
     {
         private DatabaseContext databaseContext;
-        public ViewModelFactory(DatabaseContext databaseContext)
+        private AbstractController abstractController;
+        public ViewModelFactory(DatabaseContext databaseContext,
+                                AbstractController abstractController)
         {
             this.databaseContext = databaseContext;
+            this.abstractController = abstractController;
         }
         public WarehouseViewModel createWarehousePage()
         {
@@ -18,7 +22,7 @@ namespace Chef.ViewModels
 
         public WarehouseAddViewModel createWarehouseAddPage()
         {
-            return new WarehouseAddViewModel(this.databaseContext, this);
+            return new WarehouseAddViewModel(this.abstractController, this.databaseContext, this);
         }
     }
 }

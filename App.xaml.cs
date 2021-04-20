@@ -2,6 +2,7 @@
 using Chef.Models;
 using Chef.Models.Database;
 using Chef.Pages;
+using Chef.Shared;
 using Chef.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -23,9 +24,11 @@ namespace Chef
         private IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<DatabaseContext>();
-            services.AddSingleton<ViewModelFactory>(p =>
-                new ViewModelFactory(new DatabaseContext())
+            services.AddScoped<Shared.AbstractController>();
+            services.AddSingleton(p =>
+            new ViewModelFactory(new DatabaseContext(), new Shared.AbstractController())
             );
+
             services.AddScoped<MainWindow>();
 
             return services.BuildServiceProvider();
