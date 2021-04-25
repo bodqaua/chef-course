@@ -44,6 +44,16 @@ namespace Chef.Shared
             return isValid;
         }
 
+        public void clearForm(Page self, List<ITextBoxGroup> controls)
+        {
+            Dictionary<string, TextBox> elements = this.generetaTextBoxDictionary(self, controls);
+            foreach (ITextBoxGroup control in controls)
+            {
+                TextBox textBox = elements[control.Name];
+                textBox.Text = String.Empty;
+            };
+        }
+
         public Dictionary<string, TextBox> generetaTextBoxDictionary(Page self, List<ITextBoxGroup> controls)
         {
             Dictionary<string, TextBox> elements = new Dictionary<string, TextBox>();

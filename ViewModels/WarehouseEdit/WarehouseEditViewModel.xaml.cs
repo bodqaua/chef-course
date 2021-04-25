@@ -1,5 +1,9 @@
 ﻿using Chef.Models;
 using Chef.Models.Database;
+using Chef.Shared;
+using Chef.Validators;
+using Chef.Validators.InputValidators;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,68 +18,52 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Chef.Validators;
-using Chef.Validators.InputValidators;
-using System.Reflection;
-using Chef.Shared;
-using Chef.Interfaces;
 
-namespace Chef.ViewModels.WarehouseAdd
+namespace Chef.ViewModels.WarehouseEdit
 {
     /// <summary>
-    /// Interaction logic for WarehouseAddViewModel.xaml
+    /// Interaction logic for WarehouseEditViewModel.xaml
     /// </summary>
-    public partial class WarehouseAddViewModel : Page
+    public partial class WarehouseEditViewModel : Page
     {
         private ProductService productService;
         private ViewModelFactory viewModelFactory;
         private ValidationController validationController;
-        private List<Product> products = new List<Product>();
+        private DbSet<Product> products;
         private FormGroup formGroup = new FormGroup();
-        public WarehouseAddViewModel(ValidationController validationController,
+        public WarehouseEditViewModel(ValidationController validationController,
                                      ProductService productService,
                                      ViewModelFactory viewModelFactory)
         {
             this.productService = productService;
             this.viewModelFactory = viewModelFactory;
             this.validationController = validationController;
-            InitializeComponent();
             this.DataContext = this.formGroup;
+            InitializeComponent();
+            this.loadProducts();
         }
 
-        private void addHandler_Click(object sender, RoutedEventArgs e)
+        public void EditProduct_Click(object sender, MouseButtonEventArgs e)
         {
-            if (!this.validationController.isFormValid(this, this.formGroup.controls))
+            DataGridRow row = (DataGridRow)sender;
+            if (!(row.DataContext is Product))
             {
+                Name.Text = String.Empty;
+                Price.Text = String.Empty;
+                Quantity.Text = String.Empty;
                 return;
             }
-
-            string name = this.Name.Text;
-            string price = this.Price.Text;
-            string quantity = this.Quantity.Text;
-            this.addProduct(Product.create(name, price, quantity));
-            this.updateProducts();
+            Product product = (Product)row.DataContext;
+            Name.Text = product.Name;
+            Price.Text = product.Price.ToString();
+            Quantity.Text = product.Quantity.ToString();
         }
 
-        private void addProduct(Product product)
+        private void loadProducts()
         {
-            product.Id = this.products.Count;
-            this.products.Add(product);
+            this.products = this.productService.loadProducts();
+            WarehouseDataGrid.ItemsSource = this.products.ToList<Product>();
         }
-
-        private void updateProducts()
-        {
-                this.WarehouseDataGrid.ItemsSource = null;
-                this.WarehouseDataGrid.ItemsSource = this.products;
-        }
-
-        private void saveHandler_Click(object sender, RoutedEventArgs e)
-        {
-            this.productService.saveProductsUniq(this.products);
-            this.WarehouseDataGrid.ItemsSource = null;
-            MessageBox.Show("Продукты сохранены");
-        }
-
     }
 
     public class FormGroup

@@ -15,11 +15,15 @@ namespace Chef.Models
         public double Price { get; set; }
         public double Quantity { get; set; }
 
-        public void prepare()
+        public static Product create(string name, string price, string quantity)
         {
-            this.Name = this.Name.Trim();
-            this.Price = Convert.ToDouble(this.Price);
-            this.Quantity = Convert.ToDouble(this.Quantity);
+            Product product = new Product
+            {
+                Name = name.Trim(),
+                Price = Convert.ToDouble(price),
+                Quantity = Convert.ToDouble(quantity)
+            };
+            return product;
         }
     }
 }

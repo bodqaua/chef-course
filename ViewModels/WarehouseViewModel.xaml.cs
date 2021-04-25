@@ -44,5 +44,10 @@ namespace Chef.ViewModels
             this.Content = new Frame { Content = this.viewModelFactory.createWarehouseAddPage() };
 
         }
+
+        private void editStuffs_Click(object sender, RoutedEventArgs e)
+        {
+            this.Content = new Frame { Content = this.viewModelFactory.createWarehouseEditPage() };
+        }
     }
 }

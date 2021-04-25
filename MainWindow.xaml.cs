@@ -40,12 +40,8 @@ namespace Chef
         private void generateTestEntity()
         {
             this.databaseContext.Products.RemoveRange(this.databaseContext.Products);
-            Product product1 = new Product { Name = "Tomato", Price = 12.1, Quantity = 12.1 };
-            Product product2 = new Product { Name = "Cucumber", Price = 12.1, Quantity = 12.1 };
-            product1.prepare();
-            product2.prepare();
-            this.databaseContext.Products.Add(product1);
-            this.databaseContext.Products.Add(product2);
+            this.databaseContext.Products.Add(Product.create("Tomato", "12.1", "12.1"));
+            this.databaseContext.Products.Add(Product.create("Tomato", "12.1", "12.1"));
             this.databaseContext.SaveChanges();
             MessageBox.Show("Success");
         }

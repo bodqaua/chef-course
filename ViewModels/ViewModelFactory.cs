@@ -2,6 +2,7 @@
 using Chef.Pages;
 using Chef.Shared;
 using Chef.ViewModels.WarehouseAdd;
+using Chef.ViewModels.WarehouseEdit;
 
 namespace Chef.ViewModels
 {
@@ -9,11 +10,15 @@ namespace Chef.ViewModels
     {
         private DatabaseContext databaseContext;
         private ValidationController validationController;
+        private ProductService productService;
         public ViewModelFactory(DatabaseContext databaseContext,
-                                ValidationController validationController)
+                                ValidationController validationController,
+                                ProductService productService
+            )
         {
             this.databaseContext = databaseContext;
             this.validationController = validationController;
+            this.productService = productService;
         }
         public WarehouseViewModel createWarehousePage()
         {
@@ -22,7 +27,12 @@ namespace Chef.ViewModels
 
         public WarehouseAddViewModel createWarehouseAddPage()
         {
-            return new WarehouseAddViewModel(this.validationController, this.databaseContext, this);
+            return new WarehouseAddViewModel(this.validationController, this.productService, this);
+        }
+
+        public WarehouseEditViewModel createWarehouseEditPage()
+        {
+            return new WarehouseEditViewModel(this.validationController, this.productService, this);
         }
     }
 }

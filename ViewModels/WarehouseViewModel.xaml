@@ -8,14 +8,15 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="WarehouseViewModel">
 
-
-
     <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8*"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <DataGrid Grid.Column="0" Name="WarehouseDataGrid" AutoGenerateColumns="False">
+        <DataGrid Grid.Column="0"
+                  Name="WarehouseDataGrid"
+                  IsReadOnly="True"
+                  AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
                 <DataGridTextColumn Binding="{Binding Price}" Header="Price"/>
@@ -46,7 +47,7 @@
                 Cursor="Hand"
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Top" Width="140" Margin="0,52,0,0" 
-                Content="Edit">
+                Content="Edit" Click="editStuffs_Click">
             <Button.Template>
                 <ControlTemplate>
                     <Border CornerRadius="2"
