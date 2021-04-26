@@ -29,6 +29,15 @@ namespace Chef.Models.Database
             this.save();
         }
 
+        public void updateProduct(int id, Product product)
+        {
+            var entity = this.db.Products.Where(w => w.Id == id).FirstOrDefault();
+            entity.Name = product.Name;
+            entity.Price = product.Price;
+            entity.Quantity = product.Quantity;
+            this.save();
+        }
+
         public void saveProductsUniq(List<Product> products)
         {
             DbSet<Product> dbProducts = this.loadProducts();

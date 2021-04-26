@@ -54,11 +54,11 @@ namespace Chef.Validators
                 {
                     case "int":
                         isTypeValid = Int32.TryParse(value.ToString(), out int intRes);
-                        invalidMessage = "incorrect number";
+                        invalidMessage = "incorrect number (int)";
                         break;
                     case "double":
                         isTypeValid = Double.TryParse(value.ToString(), out double doubleRes);
-                        invalidMessage = "incorrect number";
+                        invalidMessage = "incorrect number (double)";
                         break;
                     default:
                         return this.getValidationResult(false, "Invalid type");

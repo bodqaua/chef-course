@@ -25,5 +25,17 @@ namespace Chef.Models
             };
             return product;
         }
+
+       public static Product  createWithId(int id, string name, string price, string quantity)
+        {
+            Product product = new Product
+            {
+                Id = id,
+                Name = name.Trim(),
+                Price = Convert.ToDouble(price),
+                Quantity = Convert.ToDouble(quantity)
+            };
+            return product;
+        }
     }
 }
