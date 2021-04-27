@@ -34,7 +34,7 @@ namespace Chef.ViewModels.WarehouseEdit
         private ValidationController validationController;
         private DbSet<Product> products;
         private FormGroup formGroup = new FormGroup();
-        private int editProductId;
+        private int editProductId = -1;
         public WarehouseEditViewModel(ValidationController validationController,
                                      ProductService productService,
                                      ViewModelFactory viewModelFactory)
@@ -53,13 +53,7 @@ namespace Chef.ViewModels.WarehouseEdit
             DataGridRow row = (DataGridRow)sender;
             if (!(row.DataContext is Product))
             {
-                Name.Text = String.Empty;
-                Price.Text = String.Empty;
-                Quantity.Text = String.Empty;
-                this.formGroup.Name.Value = String.Empty;
-                this.formGroup.Price.Value = String.Empty;
-                this.formGroup.Quantity.Value = String.Empty;
-                this.formGroup.IsEnabled = false;
+                this.clearProduct();
                 return;
             }
             Product product = (Product)row.DataContext;
@@ -89,6 +83,37 @@ namespace Chef.ViewModels.WarehouseEdit
             );
             this.productService.updateProduct(this.editProductId, product);
             this.loadProducts();
+        }
+
+        private void deleteHandler_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.editProductId == -1)
+            {
+                return;
+            }
+
+            MessageBoxResult confirmation = MessageBox.Show("Удалить продукт " + this.editProductId +  "?", "Удаление", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning);
+            bool confirmed = confirmation == MessageBoxResult.Yes;
+            if (!confirmed)
+            {
+                return;
+            }
+
+            this.productService.deleteProduct(this.editProductId);
+            this.clearProduct();
+            this.loadProducts();
+        }
+
+        private void clearProduct()
+        {
+            Name.Text = String.Empty;
+            Price.Text = String.Empty;
+            Quantity.Text = String.Empty;
+            this.formGroup.Name.Value = String.Empty;
+            this.formGroup.Price.Value = String.Empty;
+            this.formGroup.Quantity.Value = String.Empty;
+            this.formGroup.IsEnabled = false;
+            this.editProductId = -1;
         }
 
         private void initBindings()
@@ -162,8 +187,6 @@ namespace Chef.ViewModels.WarehouseEdit
                 this.controls.Add(this.Quantity);
             }
         }
-
-
     }
 
 }

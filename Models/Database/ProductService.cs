@@ -62,6 +62,17 @@ namespace Chef.Models.Database
             }
         }
 
+        public void deleteProduct(int id)
+        {
+            var product = this.db.Products.SingleOrDefault(item => item.Id == id); 
+
+            if (product != null)
+            {
+                this.db.Products.Remove(product);
+                this.save();
+            }
+        }
+
         private void save()
         {
             this.db.SaveChanges();

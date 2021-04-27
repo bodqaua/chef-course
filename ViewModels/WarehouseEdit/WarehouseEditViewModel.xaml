@@ -10,10 +10,14 @@
       Title="WarehouseEditViewModel">
     <Grid Background="#FFFFFF">
         <Grid.RowDefinitions>
+            <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="64*"></RowDefinition>
             <RowDefinition Height="301*"></RowDefinition>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" VerticalAlignment="Top" Height="58">
+        <DockPanel Grid.Row="0">
+            <TextBlock>Back</TextBlock>
+        </DockPanel>
+        <DockPanel Grid.Row="1" VerticalAlignment="Top" Height="58">
             <StackPanel VerticalAlignment="Top">
                 <Label Margin="12,0,0,0" VerticalAlignment="Bottom" Content="Название"/>
                 <TextBox 
@@ -127,8 +131,8 @@
                     </Validation.ErrorTemplate>
                 </TextBox>
             </StackPanel>
-            <StackPanel VerticalAlignment="Bottom">
-                <Button x:Name="addHandler"
+            <DockPanel VerticalAlignment="Bottom">
+                <Button x:Name="editHandler"
                     Cursor="Hand"
                     Width="120"
                     HorizontalAlignment="Left"
@@ -162,9 +166,44 @@
                         </Style>
                     </Button.Style>
                 </Button>
-            </StackPanel>
+                <Button x:Name="deleteHandler"
+                    Cursor="Hand"
+                    Width="120"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top" 
+                    Margin="12,0,0,0" Click="deleteHandler_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border CornerRadius="4"
+                            Background="#00897b"
+                            Padding="12,8,12,8" BorderBrush="#FF00897B">
+                                <TextBlock 
+                                    Text="Удалить"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="IsEnabled" Value="False"/>
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Name}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Price}" Value="False"/>
+                                        <Condition Binding="{Binding Path=(Validation.HasError), ElementName=Quantity}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </DockPanel>
         </DockPanel>
-        <DockPanel  Grid.Row="1">
+        <DockPanel  Grid.Row="2">
             <DataGrid
                   IsReadOnly="False"
                   Name="WarehouseDataGrid" 
