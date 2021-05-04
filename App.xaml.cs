@@ -24,7 +24,8 @@ namespace Chef
         private IServiceProvider ConfigureServices(IServiceCollection services)
         {
             DatabaseContext db = new DatabaseContext();
-            services.AddSingleton<DatabaseContext>();
+            services.AddDbContext<DatabaseContext>();
+            //services.AddSingleton<DatabaseContext>();
             services.AddScoped<ValidationController>();
             services.AddScoped<ProductService>();
             services.AddSingleton(p =>
