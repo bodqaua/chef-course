@@ -54,7 +54,6 @@ namespace Chef.ViewModels.Recipe
         private void IngredientsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             KeyValuePair<int, string> item = (KeyValuePair<int, string>)IngredientsComboBox.SelectedItem;
-            MessageBox.Show(item.Key.ToString());
             MessageBox.Show(item.Value.ToString());
         }
     }
