@@ -13,10 +13,44 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0">
-            
-        </StackPanel>
+        <ScrollViewer>
+            <StackPanel Grid.Row="0" Margin="12">
+                <Label>Название рецепта</Label>
+                <TextBox />
+
+                <Label>Калорийность</Label>
+                <TextBox />
+
+
+                <Label>Белки</Label>
+                <TextBox />
+
+                <Label>Жиры</Label>
+                <TextBox />
+
+                <Label>Углеводы</Label>
+                <TextBox />
+
+                <Label>Описание</Label>
+                <RichTextBox MinHeight="80" MaxHeight="400" MaxWidth="300" HorizontalAlignment="Left" />
+
+                <Label>Ингредиенты</Label>
+                <ComboBox Name="IngredientsComboBox"
+                          SelectedValuePath="Tag"
+                          SelectionChanged="IngredientsComboBox_SelectionChanged" />
+            </StackPanel>
+        </ScrollViewer>
+      
     </Grid>
 
  
+        <!--public int Id { get; set; }
+        public string Name { get; set; }
+        public int Calories { get; set; }
+        public double Proteins { get; set; }
+        public double Fats { get; set; }
+        public double Carbohydrate { get; set; }
+        public List<DbImage> Images { get; set; }
+        public string Description { get; set; }
+        public List<Ingredient> Ingredients { get; set; }-->
 </Page>

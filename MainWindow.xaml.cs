@@ -12,6 +12,7 @@ using Chef.Models.Entities;
 using Chef.Pages;
 using Chef.Shared;
 using Chef.ViewModels;
+using Chef.ViewModels.Recipe;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chef
@@ -32,7 +33,7 @@ namespace Chef
 
             InitializeComponent();
             this.checkDatabase();
-            //this.redirect();
+            this.redirect();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -69,7 +70,7 @@ namespace Chef
 
         private void redirect()
         {
-            this.Content = new Frame { Content = this.viewModelFactory.createWarehousePage() };
+            this.Content = new Frame { Content = this.viewModelFactory.createRecipeAddPage() };
         }
 
         private void generateRecipe()
