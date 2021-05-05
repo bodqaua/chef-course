@@ -25,7 +25,6 @@ namespace Chef
         {
             DatabaseContext db = new DatabaseContext();
             services.AddDbContext<DatabaseContext>();
-            //services.AddSingleton<DatabaseContext>();
             services.AddScoped<ValidationController>();
             services.AddScoped<ProductService>();
             services.AddSingleton(p =>

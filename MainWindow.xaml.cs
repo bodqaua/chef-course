@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,7 +10,9 @@ using Chef.Models;
 using Chef.Models.Database;
 using Chef.Models.Entities;
 using Chef.Pages;
+using Chef.Shared;
 using Chef.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chef
 {
@@ -19,6 +23,7 @@ namespace Chef
     {
         private DatabaseContext databaseContext;
         private ViewModelFactory viewModelFactory;
+        private int dbLength = 5;
         public MainWindow(DatabaseContext databaseContext,
                           ViewModelFactory viewModelFactory)
         {
@@ -26,6 +31,7 @@ namespace Chef
             this.viewModelFactory = viewModelFactory;
 
             InitializeComponent();
+            this.checkDatabase();
             //this.redirect();
         }
 
@@ -91,6 +97,22 @@ namespace Chef
 
             this.databaseContext.Recipes.Add(recipe);
             this.databaseContext.SaveChanges();
+        }
+
+        private void checkDatabase()
+        {
+            var result = SqlHelper.getDatabasesCount();
+            if (result < this.dbLength)
+            {
+                try
+                {
+                    this.databaseContext.Database.EnsureDeleted();
+                    this.databaseContext.Database.Migrate();
+                } catch
+                {
+                    MessageBox.Show("Some database error");
+                }
+            }
         }
     }
 }
