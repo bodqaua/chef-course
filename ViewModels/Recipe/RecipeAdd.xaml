@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Chef.ViewModels.Recipe"
+      xmlns:validator="clr-namespace:Chef.Validators"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RecipeAdd">
@@ -20,13 +21,42 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                    <StackPanel Grid.Column="0" Margin="0,0,6,12">
                         <Label>Название</Label>
-                        <TextBox x:Name="FieldName" />
+                        <TextBox  
+                             Name="Name"
+                             Padding="6,7,6,7" 
+                             BorderBrush="#FFCED4DA">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                                <validator:BindingProxy Data="{Binding}" x:Key="proxy"/>
+                            </TextBox.Resources>
+                            <TextBox.Text>
+                                <Binding Path="Name.Value" UpdateSourceTrigger="PropertyChanged"  ValidatesOnDataErrors="True">
+                                    <Binding.ValidationRules>
+                                        <validator:TextBoxValidator>
+                                            <validator:TextBoxValidator.Wrapper>
+                                                <validator:Wrapper Validators="{Binding Path=Data.Name.Validators, Source={StaticResource proxy}}"/>
+                                            </validator:TextBoxValidator.Wrapper>
+                                        </validator:TextBoxValidator>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder />
+                                        <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                     </StackPanel>
                 </Grid>
 
-                <Grid>
+                <Grid Margin="0 0 0 12">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
@@ -35,19 +65,135 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Margin="0,0,6,0">
                         <Label>Калорийность</Label>
-                        <TextBox x:Name="FieldCalories" />
+                        <TextBox 
+                             Name="Calories"
+                             Padding="6,7,6,7" 
+                             BorderBrush="#FFCED4DA">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                                <validator:BindingProxy Data="{Binding}" x:Key="proxy"/>
+                            </TextBox.Resources>
+                            <TextBox.Text>
+                                <Binding Path="Calories.Value" UpdateSourceTrigger="PropertyChanged"  ValidatesOnDataErrors="True">
+                                    <Binding.ValidationRules>
+                                        <validator:TextBoxValidator>
+                                            <validator:TextBoxValidator.Wrapper>
+                                                <validator:Wrapper Validators="{Binding Path=Data.Calories.Validators, Source={StaticResource proxy}}"/>
+                                            </validator:TextBoxValidator.Wrapper>
+                                        </validator:TextBoxValidator>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder />
+                                        <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="6,0,6,0">
                         <Label>Белки</Label>
-                        <TextBox x:Name="FieldProteins" />
+                        <TextBox 
+                             Name="Proteins"
+                             Padding="6,7,6,7" 
+                             BorderBrush="#FFCED4DA">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                                <validator:BindingProxy Data="{Binding}" x:Key="proxy"/>
+                            </TextBox.Resources>
+                            <TextBox.Text>
+                                <Binding Path="Proteins.Value" UpdateSourceTrigger="PropertyChanged"  ValidatesOnDataErrors="True">
+                                    <Binding.ValidationRules>
+                                        <validator:TextBoxValidator>
+                                            <validator:TextBoxValidator.Wrapper>
+                                                <validator:Wrapper Validators="{Binding Path=Data.Proteins.Validators, Source={StaticResource proxy}}"/>
+                                            </validator:TextBoxValidator.Wrapper>
+                                        </validator:TextBoxValidator>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder />
+                                        <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="2" Margin="6,0,0,6">
                         <Label>Жиры</Label>
-                        <TextBox x:Name="FieldFats" />
+                        <TextBox 
+                             Name="Fats"
+                             Padding="6,7,6,7" 
+                             BorderBrush="#FFCED4DA">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                                <validator:BindingProxy Data="{Binding}" x:Key="proxy"/>
+                            </TextBox.Resources>
+                            <TextBox.Text>
+                                <Binding Path="Fats.Value" UpdateSourceTrigger="PropertyChanged"  ValidatesOnDataErrors="True">
+                                    <Binding.ValidationRules>
+                                        <validator:TextBoxValidator>
+                                            <validator:TextBoxValidator.Wrapper>
+                                                <validator:Wrapper Validators="{Binding Path=Data.Fats.Validators, Source={StaticResource proxy}}"/>
+                                            </validator:TextBoxValidator.Wrapper>
+                                        </validator:TextBoxValidator>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder />
+                                        <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                     </StackPanel>
                     <StackPanel Grid.Column="3" Margin="6,0,0,0">
                         <Label>Углеводы</Label>
-                        <TextBox x:Name="FieldCarbohydrate" />
+                        <TextBox 
+                             Name="Carbohydrate"
+                             Padding="6,7,6,7" 
+                             BorderBrush="#FFCED4DA">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                                <validator:BindingProxy Data="{Binding}" x:Key="proxy"/>
+                            </TextBox.Resources>
+                            <TextBox.Text>
+                                <Binding Path="Carbohydrate.Value" UpdateSourceTrigger="PropertyChanged"  ValidatesOnDataErrors="True">
+                                    <Binding.ValidationRules>
+                                        <validator:TextBoxValidator>
+                                            <validator:TextBoxValidator.Wrapper>
+                                                <validator:Wrapper Validators="{Binding Path=Data.Carbohydrate.Validators, Source={StaticResource proxy}}"/>
+                                            </validator:TextBoxValidator.Wrapper>
+                                        </validator:TextBoxValidator>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder />
+                                        <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                     </StackPanel>
                 </Grid>
 
@@ -57,13 +203,43 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                    <StackPanel Grid.Column="0" Margin="0,0,6,12">
                         <Label>Описание</Label>
-                        <RichTextBox 
-                            x:Name="FieldDescription"
-                            MinHeight="80"
-                            MaxHeight="400"
-                            HorizontalAlignment="Left" />
+                        <TextBox 
+                             Name="Description"
+                             Padding="6,7,6,7"
+                             TextWrapping="Wrap"
+                             AcceptsReturn="True"
+                             VerticalScrollBarVisibility="Visible"
+                             MinHeight="80"
+                             MaxHeight="120"
+                             BorderBrush="#FFCED4DA">
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="4"/>
+                                </Style>
+                                <validator:BindingProxy Data="{Binding}" x:Key="proxy"/>
+                            </TextBox.Resources>
+                            <TextBox.Text>
+                                <Binding Path="Description.Value" UpdateSourceTrigger="PropertyChanged"  ValidatesOnDataErrors="True">
+                                    <Binding.ValidationRules>
+                                        <validator:TextBoxValidator>
+                                            <validator:TextBoxValidator.Wrapper>
+                                                <validator:Wrapper Validators="{Binding Path=Data.Description.Validators, Source={StaticResource proxy}}"/>
+                                            </validator:TextBoxValidator.Wrapper>
+                                        </validator:TextBoxValidator>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <Validation.ErrorTemplate>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder />
+                                        <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Validation.ErrorTemplate>
+                        </TextBox>
                     </StackPanel>
                 </Grid>
 
@@ -74,7 +250,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
 
-                    <DockPanel Grid.Row="0">
+                    <DockPanel Grid.Row="0" Margin="0 0 0 12">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="8*"/>
@@ -84,17 +260,66 @@
                             <StackPanel Grid.Column="0">
                                 <Label>Ингредиенты</Label>
                                 <ComboBox Name="IngredientsComboBox"
-                          SelectedValuePath="Tag"/>
+                                          Padding="6,9,6,7" 
+                                          SelectedValuePath="Tag" 
+                                          VerticalAlignment="Bottom" 
+                                          HorizontalAlignment="Stretch"/>
                             </StackPanel>
                             <StackPanel Grid.Column="1" Margin="12 0" VerticalAlignment="Bottom">
                                 <Label>Количество</Label>
-                                <TextBox x:Name="FieldIngredientQuantity" />
+                                <TextBox 
+                             Name="IngredientQuantity"
+                             Padding="6,7,6,7" 
+                             BorderBrush="#FFCED4DA">
+                                    <TextBox.Resources>
+                                        <Style TargetType="{x:Type Border}">
+                                            <Setter Property="CornerRadius" Value="4"/>
+                                        </Style>
+                                        <validator:BindingProxy Data="{Binding}" x:Key="proxy"/>
+                                    </TextBox.Resources>
+                                    <TextBox.Text>
+                                        <Binding Path="IngredientQuantity.Value" UpdateSourceTrigger="PropertyChanged"  ValidatesOnDataErrors="True">
+                                            <Binding.ValidationRules>
+                                                <validator:TextBoxValidator>
+                                                    <validator:TextBoxValidator.Wrapper>
+                                                        <validator:Wrapper Validators="{Binding Path=Data.IngredientQuantity.Validators, Source={StaticResource proxy}}"/>
+                                                    </validator:TextBoxValidator.Wrapper>
+                                                </validator:TextBoxValidator>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                    <Validation.ErrorTemplate>
+                                        <ControlTemplate>
+                                            <StackPanel>
+                                                <AdornedElementPlaceholder />
+                                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                                            </StackPanel>
+                                        </ControlTemplate>
+                                    </Validation.ErrorTemplate>
+                                </TextBox>
                             </StackPanel>
                             <StackPanel Grid.Column="2" VerticalAlignment="Bottom">
-                                <Button Click="addIngredient">Добавить</Button>
+                                <Button x:Name="addHandler"
+                                    Cursor="Hand"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Top" 
+                                    Click="addIngredient" >
+                                    <Button.Template>
+                                        <ControlTemplate>
+                                            <Border CornerRadius="4"
+                                                    Background="#00897b"
+                                                    Padding="12,8,12,8" BorderBrush="#FF00897B">
+                                                <TextBlock Text="Добавить"
+                                                   Foreground="White"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
                             </StackPanel>
                         </Grid>
-
                     </DockPanel>
 
                     <StackPanel Grid.Row="1" Margin="0 12 0 0">
@@ -106,9 +331,29 @@
                                     <GridViewColumn Width="150" Header="Действие">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <Button Click="DeleteItem" Tag="{Binding Path=ListId}">
-                                                    x
-                                                </Button>
+                                                <StackPanel Margin="0 6">
+                                                    <Button Click="DeleteItem"
+                                                        Width="150"
+                                                        Tag="{Binding Path=ListId}"
+                                                        Cursor="Hand"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center">
+                                                        <Button.Template>
+                                                            <ControlTemplate>
+                                                                <Border CornerRadius="4"
+                                                                    Background="#FFF44336"
+                                                                    Padding="12,8,12,8"
+                                                                    BorderBrush="#FFF44336">
+                                                                    <TextBlock Text="Удалить"
+                                                                        Foreground="White"
+                                                                        VerticalAlignment="Center"
+                                                                        HorizontalAlignment="Center"
+                                                               />
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Button.Template>
+                                                    </Button>
+                                                </StackPanel>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
@@ -124,24 +369,54 @@
                     </Grid.RowDefinitions>
 
                     <DockPanel Name="ImagePanel" Margin="0,12,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
-                        <Button x:Name="AddImage"
+                        <Button 
                                 Click="OpenUploadImage"
-                                Background="#00897b"
-                                Foreground="#FFFFFF"
-                                BorderThickness="2"
-                                Width="40"
-                                Height="40"
-                                BorderBrush="#00695c"
-                                FontSize="24" 
-                                FontStyle="Normal"
-                                Padding="0 -6 0 0"
                                 Cursor="Hand"
-                                Content="+"/>
-
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Border CornerRadius="4"
+                                            Background="#00897b"
+                                            BorderThickness="2"
+                                            Width="40"
+                                            Height="40"
+                                            BorderBrush="#00695c"
+                                            Cursor="Hand">
+                                        <TextBlock Text="+"
+                                                   Foreground="White"
+                                                   FontSize="24" 
+                                                   Margin="0 -6 0 0"
+                                                   FontStyle="Normal"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                            />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </DockPanel>
                 </Grid>
                 <DockPanel HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button Click="SaveRecipe">Сохранить</Button>
+                    <Button Cursor="Hand"
+                            Width="125"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top" 
+                            Click="SaveRecipe">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border CornerRadius="4"
+                                        Background="#00897b"
+                                        Padding="12,8,12,8" BorderBrush="#FF00897B">
+                                    <TextBlock Text="Сохранить"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                    />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
                 </DockPanel>
             </StackPanel>
         </ScrollViewer>

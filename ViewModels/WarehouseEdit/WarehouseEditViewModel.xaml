@@ -205,7 +205,7 @@
         </DockPanel>
         <DockPanel  Grid.Row="2">
             <DataGrid
-                  IsReadOnly="False"
+                  IsReadOnly="True"
                   Name="WarehouseDataGrid" 
                   AutoGenerateColumns="False">
                 <DataGrid.Columns>

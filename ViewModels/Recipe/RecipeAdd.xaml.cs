@@ -2,6 +2,8 @@
 using Chef.Models.Database;
 using Chef.Models.Entities;
 using Chef.Shared;
+using Chef.Validators;
+using Chef.Validators.InputValidators;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -25,6 +27,7 @@ namespace Chef.ViewModels.Recipe
         private readonly ProductService productService;
         private readonly RecipeService recipeService;
         private readonly ViewModelFactory viewModelFactory;
+        private FormGroup formGroup = new FormGroup();
         private List<Product> products;
         private List<ImageItem> images = new List<ImageItem>();
         private List<IngredientItem> ingredientList = new List<IngredientItem>();
@@ -38,6 +41,7 @@ namespace Chef.ViewModels.Recipe
             this.recipeService = recipeService;
             this.viewModelFactory = viewModelFactory;
 
+            this.DataContext = this.formGroup;
             InitializeComponent();
             this.getIngredients();
         }
@@ -63,7 +67,7 @@ namespace Chef.ViewModels.Recipe
             KeyValuePair<int, string> item = (KeyValuePair<int, string>)IngredientsComboBox.SelectedItem;
             List<IngredientItem> items = IngredientsList.Items.Cast<IngredientItem>().ToList();
             int index = items.FindIndex((product) => product.Id == item.Key);
-            if (index != -1)
+            if (index != -1 || this.formGroup.IngredientQuantity.Value == "")
             {
                 return;
             }
@@ -72,7 +76,7 @@ namespace Chef.ViewModels.Recipe
             {
                 Id = item.Key,
                 Name = item.Value,
-                Quantity = Convert.ToDouble(FieldIngredientQuantity.Text),
+                Quantity = Convert.ToDouble(this.formGroup.IngredientQuantity.Value),
                 Action = true,
                 ListId = Guid.NewGuid().ToString()
             };
@@ -133,7 +137,8 @@ namespace Chef.ViewModels.Recipe
             }
         }
 
-        private void deleteImage(object sender) {
+        private void deleteImage(object sender)
+        {
             Image element = (Image)sender;
             int index = this.images.FindIndex((item) => item.ListId == Convert.ToString(element.Tag));
             if (index == -1)
@@ -147,35 +152,41 @@ namespace Chef.ViewModels.Recipe
 
         private void SaveRecipe(object sender, RoutedEventArgs e)
         {
+            if (!this.validationController.isFormValid(this, this.formGroup.controls))
+            {
+                return;
+            }
+
             RecipeEntity newRecipe = new RecipeEntity
             {
-                Name = Convert.ToString(FieldName.Text),
-                Calories = Convert.ToInt32(FieldCalories.Text),
-                Proteins = Convert.ToDouble(FieldProteins.Text),
-                Fats = Convert.ToDouble(FieldFats.Text),
-                Carbohydrate = Convert.ToDouble(FieldCarbohydrate.Text),
-                Description = this.getValueFromRichTextBox(FieldDescription),
+                Name = Convert.ToString(this.formGroup.Name.Value),
+                Calories = Convert.ToInt32(this.formGroup.Calories.Value),
+                Proteins = Convert.ToDouble(this.formGroup.Proteins.Value),
+                Fats = Convert.ToDouble(this.formGroup.Fats.Value),
+                Carbohydrate = Convert.ToDouble(this.formGroup.Carbohydrate.Value),
+                Description = Convert.ToString(this.formGroup.Description.Value),
                 Ingredients = IngredientItem.PrepareIngredients(this.ingredientList),
                 Images = ImageItem.PrepareImages(this.images.Select(x => x.Value).ToList())
             };
             this.recipeService.createRecipe(newRecipe);
-            MessageBox.Show("Recipe Added");
-        }
-
-        private string getValueFromRichTextBox(RichTextBox textBox)
-        {
-            return new TextRange(textBox.Document.ContentStart, textBox.Document.ContentEnd).Text;
         }
     }
 
-    public class IngredientItem: Ingredient
+    public class IngredientItem : Ingredient
     {
         public string ListId { get; set; }
         public bool Action { get; set; }
 
-        public static List<Ingredient> PrepareIngredients(List<IngredientItem> ingredients) {
-
-            return ingredients.Cast<Ingredient>().ToList();
+        public static List<Ingredient> PrepareIngredients(List<IngredientItem> ingredients)
+        {
+            List<Ingredient> dbIngredients = new List<Ingredient>();
+            foreach (IngredientItem item in ingredients)
+            {
+                dbIngredients.Add(
+                    new Ingredient { Name = item.Name, Quantity = item.Quantity }
+                );
+            }
+            return dbIngredients;
         }
 
     }
@@ -226,7 +237,8 @@ namespace Chef.ViewModels.Recipe
             return data;
         }
 
-        public byte[] convertBase64ToByte(string base64){
+        public byte[] convertBase64ToByte(string base64)
+        {
             return Convert.FromBase64String(base64);
         }
 
@@ -254,6 +266,97 @@ namespace Chef.ViewModels.Recipe
             image.MouseLeave += (sender, args) => { image.Source = imageData; };
 
             return image;
+        }
+    }
+
+    public class FormGroup
+    {
+        public ITextBoxGroup Name { get; set; } = new TextBoxGroup
+        {
+            Name = "Name",
+            Value = "",
+            Validators = new List<AbstractValidator>()
+            {
+                new RequiredValidator()
+            }
+        };
+
+        public ITextBoxGroup Calories { get; set; } = new TextBoxGroup
+        {
+            Name = "Calories",
+            Value = "",
+            Validators = new List<AbstractValidator>()
+            {
+                new RequiredValidator(),
+                new MinValidator(0)
+            }
+        };
+
+        public ITextBoxGroup Proteins { get; set; } = new TextBoxGroup
+        {
+            Name = "Proteins",
+            Value = "",
+            Validators = new List<AbstractValidator>()
+            {
+                new RequiredValidator(),
+                new MinValidator(0)
+            }
+        };
+
+        public ITextBoxGroup Fats { get; set; } = new TextBoxGroup
+        {
+            Name = "Fats",
+            Value = "",
+            Validators = new List<AbstractValidator>()
+            {
+                new RequiredValidator(),
+                new MinValidator(0)
+            }
+        };
+
+        public ITextBoxGroup Carbohydrate { get; set; } = new TextBoxGroup
+        {
+            Name = "Carbohydrate",
+            Value = "",
+            Validators = new List<AbstractValidator>()
+            {
+                new RequiredValidator(),
+                new MinValidator(0),
+            }
+        };
+
+        public ITextBoxGroup Description { get; set; } = new TextBoxGroup
+        {
+            Name = "Description",
+            Value = "",
+            Validators = new List<AbstractValidator>()
+            {
+                new RequiredValidator()
+            }
+        };
+
+        public ITextBoxGroup IngredientQuantity { get; set; } = new TextBoxGroup
+        {
+            Name = "IngredientQuantity",
+            Value = "",
+            Validators = new List<AbstractValidator>()
+            {
+                new RequiredValidator(),
+                new MinValidator(0)
+            }
+        };
+
+        public List<ITextBoxGroup> controls = new List<ITextBoxGroup>();
+
+        public FormGroup()
+        {
+            this.controls.Add(this.Name);
+            this.controls.Add(this.Calories);
+            this.controls.Add(this.Proteins);
+            this.controls.Add(this.Fats);
+            this.controls.Add(this.Carbohydrate);
+            this.controls.Add(this.Description);
+            this.controls.Add(this.IngredientQuantity);
         }
     }
 }

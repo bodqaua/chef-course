@@ -18,10 +18,6 @@ namespace Chef.Models.Database
 
         public void deleteRecipe(int id)
         {
-            //RecipeEntity recipe = this.databaseContext.Recipes
-            //    .Where(r => r.Id== id)
-            //    .SingleOrDefault();
-
             RecipeEntity recipe = this.databaseContext.Recipes
                 .Where(r => r.Id == id)
                 .Include(x => x.Images)
