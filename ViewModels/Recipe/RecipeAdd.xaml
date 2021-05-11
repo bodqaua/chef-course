@@ -15,42 +15,135 @@
 
         <ScrollViewer>
             <StackPanel Grid.Row="0" Margin="12">
-                <Label>Название рецепта</Label>
-                <TextBox />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                        <Label>Название</Label>
+                        <TextBox x:Name="FieldName" />
+                    </StackPanel>
+                </Grid>
 
-                <Label>Калорийность</Label>
-                <TextBox />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                        <Label>Калорийность</Label>
+                        <TextBox x:Name="FieldCalories" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="6,0,6,0">
+                        <Label>Белки</Label>
+                        <TextBox x:Name="FieldProteins" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" Margin="6,0,0,6">
+                        <Label>Жиры</Label>
+                        <TextBox x:Name="FieldFats" />
+                    </StackPanel>
+                    <StackPanel Grid.Column="3" Margin="6,0,0,0">
+                        <Label>Углеводы</Label>
+                        <TextBox x:Name="FieldCarbohydrate" />
+                    </StackPanel>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                        <Label>Описание</Label>
+                        <RichTextBox 
+                            x:Name="FieldDescription"
+                            MinHeight="80"
+                            MaxHeight="400"
+                            HorizontalAlignment="Left" />
+                    </StackPanel>
+                </Grid>
 
 
-                <Label>Белки</Label>
-                <TextBox />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-                <Label>Жиры</Label>
-                <TextBox />
+                    <DockPanel Grid.Row="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="8*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <Label>Ингредиенты</Label>
+                                <ComboBox Name="IngredientsComboBox"
+                          SelectedValuePath="Tag"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="12 0" VerticalAlignment="Bottom">
+                                <Label>Количество</Label>
+                                <TextBox x:Name="FieldIngredientQuantity" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" VerticalAlignment="Bottom">
+                                <Button Click="addIngredient">Добавить</Button>
+                            </StackPanel>
+                        </Grid>
 
-                <Label>Углеводы</Label>
-                <TextBox />
+                    </DockPanel>
 
-                <Label>Описание</Label>
-                <RichTextBox MinHeight="80" MaxHeight="400" MaxWidth="300" HorizontalAlignment="Left" />
+                    <StackPanel Grid.Row="1" Margin="0 12 0 0">
+                        <ListView Name="IngredientsList">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="350" Header="Название" DisplayMemberBinding="{Binding Path=Name}"/>
+                                    <GridViewColumn Width="100" Header="Количество" DisplayMemberBinding="{Binding Path=Quantity}"/>
+                                    <GridViewColumn Width="150" Header="Действие">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Click="DeleteItem" Tag="{Binding Path=ListId}">
+                                                    x
+                                                </Button>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                </Grid>
 
-                <Label>Ингредиенты</Label>
-                <ComboBox Name="IngredientsComboBox"
-                          SelectedValuePath="Tag"
-                          SelectionChanged="IngredientsComboBox_SelectionChanged" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel Name="ImagePanel" Margin="0,12,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <Button x:Name="AddImage"
+                                Click="OpenUploadImage"
+                                Background="#00897b"
+                                Foreground="#FFFFFF"
+                                BorderThickness="2"
+                                Width="40"
+                                Height="40"
+                                BorderBrush="#00695c"
+                                FontSize="24" 
+                                FontStyle="Normal"
+                                Padding="0 -6 0 0"
+                                Cursor="Hand"
+                                Content="+"/>
+
+                    </DockPanel>
+                </Grid>
+                <DockPanel HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Click="SaveRecipe">Сохранить</Button>
+                </DockPanel>
             </StackPanel>
         </ScrollViewer>
-      
     </Grid>
-
- 
-        <!--public int Id { get; set; }
-        public string Name { get; set; }
-        public int Calories { get; set; }
-        public double Proteins { get; set; }
-        public double Fats { get; set; }
-        public double Carbohydrate { get; set; }
-        public List<DbImage> Images { get; set; }
-        public string Description { get; set; }
-        public List<Ingredient> Ingredients { get; set; }-->
 </Page>

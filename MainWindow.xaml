@@ -7,13 +7,41 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button HorizontalAlignment="Left"
-                Margin="10,10,0,0"
-                VerticalAlignment="Top"
-                Height="24"
-                Width="81" 
-                Click="Button_Click" Content="Load"/>
-        <Button x:Name="createTestEntities" Content="Create test entities" HorizontalAlignment="Left" Margin="96,10,0,0" VerticalAlignment="Top" Height="24" Width="105" Click="createTestEntities_Click"/>
-        <Button x:Name="warehouse" Content="Warehouse" HorizontalAlignment="Left" Margin="206,10,0,0" VerticalAlignment="Top" Height="24" Width="109" Click="warehouse_Click"/>
+        <StackPanel Margin="12">
+            <Button 
+                Margin="0 0 0 6"
+                Padding="6"
+                Width="140"
+                HorizontalAlignment="Left"
+                Click="Button_Click" 
+                Content="Load"/>
+
+            <Button 
+                x:Name="createTestEntities"
+                Margin="0 6"
+                Padding="6"
+                Width="140"
+                HorizontalAlignment="Left"
+                Content="Create test entities" 
+                Click="createTestEntities_Click"/>
+
+            <Button 
+                x:Name="warehouse" 
+                Margin="0 6"
+                Padding="6"
+                Width="140"
+                HorizontalAlignment="Left"
+                Content="Warehouse"
+                Click="warehouse_Click"/>
+
+            <Button 
+                x:Name="addRecipe" 
+                Content="Add recipe"
+                Margin="0 6"
+                Padding="6"
+                Width="140"
+                HorizontalAlignment="Left"
+                Click="addRecipe_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

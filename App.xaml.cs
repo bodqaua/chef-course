@@ -27,11 +27,13 @@ namespace Chef
             services.AddDbContext<DatabaseContext>();
             services.AddScoped<ValidationController>();
             services.AddScoped<ProductService>();
+            services.AddScoped<RecipeService>();
             services.AddSingleton(p =>
                 new ViewModelFactory(
                     db, 
                     new ValidationController(),
-                    new ProductService(db)
+                    new ProductService(db),
+                    new RecipeService(db)
                 )
             );
 

@@ -1,13 +1,9 @@
 ﻿using Chef.Models.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Chef.Models.Database
+namespace Chef.Models
 {
-    public class Recipe
+    public class RecipeEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,7 +14,5 @@ namespace Chef.Models.Database
         public List<DbImage> Images { get; set; }
         public string Description { get; set; }
         public List<Ingredient> Ingredients { get; set; }
-    }   
-
-   
+    }
 }

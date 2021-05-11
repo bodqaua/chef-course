@@ -9,17 +9,20 @@ namespace Chef.ViewModels
 {
     public class ViewModelFactory
     {
-        private DatabaseContext databaseContext;
-        private ValidationController validationController;
-        private ProductService productService;
+        private readonly DatabaseContext databaseContext;
+        private readonly ValidationController validationController;
+        private readonly ProductService productService;
+        private readonly RecipeService recipeService;
         public ViewModelFactory(DatabaseContext databaseContext,
                                 ValidationController validationController,
-                                ProductService productService
+                                ProductService productService,
+                                RecipeService recipeService
             )
         {
             this.databaseContext = databaseContext;
             this.validationController = validationController;
             this.productService = productService;
+            this.recipeService = recipeService;
         }
         public WarehouseViewModel createWarehousePage()
         {
@@ -38,7 +41,7 @@ namespace Chef.ViewModels
 
         public RecipeAdd createRecipeAddPage()
         {
-            return new RecipeAdd(this.validationController, this.productService, this);
+            return new RecipeAdd(this.validationController, this.productService, this, this.recipeService);
         }
     }
 }

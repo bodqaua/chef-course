@@ -1,10 +1,4 @@
-﻿using Chef.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System;
 
 namespace Chef.Models
 {
@@ -26,7 +20,7 @@ namespace Chef.Models
             return product;
         }
 
-       public static Product  createWithId(int id, string name, string price, string quantity)
+        public static Product createWithId(int id, string name, string price, string quantity)
         {
             Product product = new Product
             {
