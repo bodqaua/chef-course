@@ -1,17 +1,9 @@
-﻿using System;
+﻿using Chef.Models;
+using Chef.Models.Database;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Chef.ViewModels.Recipe
 {
@@ -20,9 +12,63 @@ namespace Chef.ViewModels.Recipe
     /// </summary>
     public partial class RecipeList : Page
     {
-        public RecipeList()
+        private readonly RecipeService recipeService;
+        private readonly ViewModelFactory viewModelFactory;
+
+        private List<RecipeEntity> recipes = new List<RecipeEntity>();
+
+        public RecipeList(RecipeService recipeService,
+                          ViewModelFactory viewModelFactory)
         {
+            this.recipeService = recipeService;
+            this.viewModelFactory = viewModelFactory;
             InitializeComponent();
+            this.LoadRecipes();
+        }
+
+        private void LoadRecipes()
+        {
+            this.recipes = this.recipeService.loadRecipes();
+            RecipeListElement.ItemsSource = this.recipes;
+        }
+
+        private void deleteRecipe(object sender, RoutedEventArgs e)
+        {
+            Button element = (Button)sender;
+            RecipeEntity recipe = (RecipeEntity)element.Tag;
+            MessageBoxResult messageBoxResult = MessageBox.Show(
+                "Уверенны что хотите удалить рецепт " + recipe.Name,
+                "Внимание!", 
+                MessageBoxButton.YesNo
+            );
+
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                this.recipeService.deleteRecipe(recipe.Id);
+                this.LoadRecipes();
+            }
+        }
+
+        private void viewRecipe(object sender, EventArgs args)
+        {
+            Button element = (Button)sender;
+            if (element.Tag == null)
+            {
+                return;
+            }
+            int recipeId = Convert.ToInt32(element.Tag);
+            this.Content = new Frame { Content = this.viewModelFactory.createRecipeView(recipeId) };
+        }
+
+        private void EditRecipe(object sender, EventArgs args)
+        {
+            Button element = (Button)sender;
+            if (element.Tag == null)
+            {
+                return;
+            }
+            int recipeId = Convert.ToInt32(element.Tag);
+            this.Content = new Frame { Content = this.viewModelFactory.createRecipeEdit(recipeId) };
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using Chef.Models.Database;
-using Chef.Pages;
 using Chef.Shared;
 using Chef.ViewModels.Recipe;
 using Chef.ViewModels.WarehouseAdd;
@@ -42,6 +41,21 @@ namespace Chef.ViewModels
         public RecipeAdd createRecipeAddPage()
         {
             return new RecipeAdd(this.validationController, this.productService, this, this.recipeService);
+        }
+
+        public RecipeList createRecipeListPage()
+        {
+            return new RecipeList(this.recipeService, this);
+        }
+
+        public RecipeView createRecipeView(int recipeId)
+        {
+            return new RecipeView(recipeId, this.recipeService, this);
+        }
+
+        public RecipeEdit createRecipeEdit(int recipeId)
+        {
+            return new RecipeEdit(recipeId, this.recipeService, this.productService, this);
         }
     }
 }

@@ -1,14 +1,115 @@
-﻿<Page x:Class="Chef.ViewModels.Recipe.RecipeView"
+﻿<local:AbstractPageController x:Class="Chef.ViewModels.Recipe.RecipeView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Chef.ViewModels.Recipe"
+      xmlns:local="clr-namespace:Chef.Shared"
+      xmlns:shared="clr-namespace:Chef.Shared.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RecipeView">
 
-    <Grid>
-        
-    </Grid>
-</Page>
+    <local:AbstractPageController.Resources>
+        <shared:ImageConverter x:Key="ImageConverter" />
+    </local:AbstractPageController.Resources>
+
+
+    <ScrollViewer>
+        <StackPanel Margin="0 0 0 24">
+            <StackPanel Background="#FFFFFF">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="16*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                        <TextBlock
+                       Margin="0 24"
+                       FontSize="28px" 
+                       Text="{Binding Path=Recipe.Name}"
+                       HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <Button Cursor="Hand"
+                                Margin="12"
+                                HorizontalAlignment="Stretch"
+                                Tag="{Binding}"
+                                VerticalAlignment="Top" 
+                                Click="deleteRecipe">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <Border CornerRadius="4"
+                                            Background="#e53935"
+                                            Padding="12,8,12,8" BorderBrush="#e53935">
+                                        <TextBlock Text="Удалить"
+                                                   Foreground="White"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                        />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                    
+                </Grid>
+             
+
+                <StackPanel Background="#cfd8dc">
+                    <Image Width="350"
+                       Margin="24" 
+                       Source="{Binding Path=ViewImage, Converter={StaticResource ImageConverter}}"/>
+                    <DockPanel x:Name="SliderWrapper" Margin="24"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center">
+                    </DockPanel>
+                </StackPanel>
+                <Grid Margin="120 24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                        <TextBlock TextAlignment="Center" FontWeight="Bold" Margin="0 0 0 12">Калории</TextBlock>
+                        <TextBlock TextAlignment="Center" Text="{Binding Path=Recipe.Calories}"/> 
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                        <TextBlock TextAlignment="Center" FontWeight="Bold" Margin="0 0 0 12">Белки</TextBlock>
+                        <TextBlock TextAlignment="Center" Text="{Binding Path=Recipe.Proteins}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                        <TextBlock TextAlignment="Center" FontWeight="Bold" Margin="0 0 0 12">Жиры</TextBlock>
+                        <TextBlock TextAlignment="Center" Text="{Binding Path=Recipe.Fats}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="3" HorizontalAlignment="Center">
+                        <TextBlock TextAlignment="Center" FontWeight="Bold" Margin="0 0 0 12">Углеводы</TextBlock>
+                        <TextBlock TextAlignment="Center" Text="{Binding Path=Recipe.Carbohydrate}"/>
+                    </StackPanel>
+                </Grid>
+                <StackPanel Margin="120 24">
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Path=Recipe.Description}"/>
+                </StackPanel>
+                <StackPanel>
+                    <ListView x:Name="IngredientList" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Name}" Width="250">Продукт</GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{Binding Path=Quantity}" Width="150">Количество</GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+       
+    </ScrollViewer>
+   
+</local:AbstractPageController>
+

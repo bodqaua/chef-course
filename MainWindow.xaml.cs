@@ -109,5 +109,10 @@ namespace Chef
         {
             this.Content = new Frame { Content = this.viewModelFactory.createWarehousePage() };
         }
+
+        private void navigateRecipeList(object sender, RoutedEventArgs e)
+        {
+            this.Content = new Frame { Content = this.viewModelFactory.createRecipeListPage() };
+        }
     }
 }

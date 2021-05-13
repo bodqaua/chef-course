@@ -1,7 +1,6 @@
 ﻿using Chef.Interfaces;
 using Chef.Models;
 using Chef.Models.Database;
-using Chef.Pages;
 using Chef.Shared;
 using Chef.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
