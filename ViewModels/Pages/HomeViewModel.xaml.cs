@@ -24,7 +24,10 @@ namespace Chef.ViewModels.Pages
             Button button = (Button)sender;
             string name = Convert.ToString(button.Tag);
             MethodInfo method = viewModelFactory.GetType().GetMethod(name);
-            this.Redirect((Page)method.Invoke(this.viewModelFactory, null));
+            if (method != null)
+            {
+                this.Redirect((Page)method.Invoke(this.viewModelFactory, null));
+            }
         }
     }
 }

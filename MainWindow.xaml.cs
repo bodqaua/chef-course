@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using Chef.Models;
 using Chef.Models.Database;
-using Chef.Models.Entities;
-using Chef.Shared;
 using Chef.ViewModels;
-using Microsoft.EntityFrameworkCore;
 
 namespace Chef
 {

@@ -1,5 +1,4 @@
-﻿using Chef.Models.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace Chef.Models.Database
@@ -11,6 +10,13 @@ namespace Chef.Models.Database
 
         public DatabaseContext()
         {
+            //try
+            //{
+            //    Database.Migrate();
+            //} catch{
+            //    Database.EnsureDeleted();
+            //    Database.EnsureCreated();
+            //}
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

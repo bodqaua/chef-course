@@ -63,5 +63,15 @@ namespace Chef.ViewModels
         {
             return new RecipeEdit(recipeId, this.recipeService, this.productService, this);
         }
+
+        public RecipeDayCounter createRecipeDayCounter()
+        {
+            return new RecipeDayCounter(this.recipeService, this.productService, this);
+        }
+
+        //public RecipeEveningCounter createRecipeEveningCounter()
+        //{
+        //    return new RecipeEveningCounter(this.recipeService, this.productService, this);
+        //}
     }
 }

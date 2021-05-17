@@ -1,0 +1,81 @@
+﻿<local:AbstractPageController x:Class="Chef.ViewModels.Pages.RecipeDayCounter"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Chef.Shared"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RecipeCounter">
+
+    <Grid Background="#FFFFFF">
+        <Grid.RowDefinitions>
+            <RowDefinition  Height="64"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <DockPanel x:Name="BackPanel" Grid.Row="0" HorizontalAlignment="Left" />
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Margin="12">
+                <Label>Завтрак</Label>
+                <ComboBox Name="BreakfastSelector"
+                            Padding="6,9,6,7" 
+                            SelectedValuePath="Name" 
+                            VerticalAlignment="Bottom" 
+                            HorizontalAlignment="Stretch"/>
+
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="12">
+                <Label>Обед</Label>
+                <ComboBox Name="LunchSelector"
+                            Padding="6,9,6,7" 
+                            SelectedValuePath="Name" 
+                            VerticalAlignment="Bottom" 
+                            HorizontalAlignment="Stretch"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Margin="12">
+                <Label>Ужин</Label>
+                <ComboBox Name="DinnerSelector"
+                            Padding="6,9,6,7" 
+                            SelectedValuePath="Name" 
+                            VerticalAlignment="Bottom" 
+                            HorizontalAlignment="Stretch"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Margin="12" HorizontalAlignment="Center">
+                <Label>Калорийность</Label>
+                <TextBlock x:Name="TotalCalories" Text="0" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="12" HorizontalAlignment="Center">
+                <Label>Жиры</Label>
+                <TextBlock x:Name="TotalFats" Text="0" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Margin="12" HorizontalAlignment="Center">
+                <Label>Белки</Label>
+                <TextBlock x:Name="TotalProteinst" Text="0" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Column="3" Margin="12" HorizontalAlignment="Center">
+                <Label>Углеводы</Label>
+                <TextBlock x:Name="TotalCarbonohydrates" Text="0" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</local:AbstractPageController>

@@ -56,6 +56,24 @@
                     VerticalAlignment="Stretch">
                 Добавить ингридиент
             </Button>
+            <Button Grid.Row="1"
+                        Grid.Column="1"
+                        Click="RedirectAction"
+                        Tag="createRecipeDayCounter"
+                        Margin="6" 
+                        Background="#F2B25C"
+                        VerticalAlignment="Stretch">
+                Меню на сутки
+            </Button>
+            <Button Grid.Row="1"
+                            Grid.Column="2"
+                            Click="RedirectAction"
+                            Tag="createRecipeEveningCounter"
+                            Margin="6" 
+                            Background="#F2B25C"
+                            VerticalAlignment="Stretch">
+                Меню на вечер
+            </Button>
     </Grid>
    
 </local:AbstractPageController>
