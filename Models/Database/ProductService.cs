@@ -73,6 +73,49 @@ namespace Chef.Models.Database
             }
         }
 
+        public Product GetProductByName(string name)
+        {
+            return this.db.Products
+                .Where(p => p.Name.ToLower().Trim() == name.ToLower().Trim())
+                .FirstOrDefault();
+        }
+
+        public bool CheckStocks(List<Product> products)
+        {
+            List<Product> uniqProducts = this.SortUniqList(products);
+            return false;
+        }
+
+        private List<Product> SortUniqList(List<Product> products)
+        {
+            List<Product> list = new List<Product>();
+
+            while(products.Count != 0)
+            {
+                List<Product> indexes = new List<Product>();
+                list.Add(Product.CreateCopy(products[0]));
+                products.RemoveAt(0);
+                for (int i = 0; i < products.Count; i++)
+                {
+                    if (products.Count == 0)
+                    {
+                        break;
+                    }
+
+                    if (products[i].Id == list[list.Count - 1].Id)
+                    {
+                        list[list.Count - 1].Quantity += products[i].Quantity;
+                        indexes.Add(products[i]);
+                    }
+                }
+                for (int i = 0; i < indexes.Count; i++)
+                {
+                    products.Remove(indexes[i]);
+                }
+            }
+            return list;
+        }
+
         private void save()
         {
             this.db.SaveChanges();

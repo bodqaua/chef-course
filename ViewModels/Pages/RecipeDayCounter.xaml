@@ -4,78 +4,153 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Chef.Shared"
+      xmlns:validator="clr-namespace:Chef.Validators"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RecipeCounter">
 
-    <Grid Background="#FFFFFF">
-        <Grid.RowDefinitions>
-            <RowDefinition  Height="64"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+    <ScrollViewer>
+        <Grid Background="#FFFFFF">
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="64"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <DockPanel x:Name="BackPanel" Grid.Row="0" HorizontalAlignment="Left" />
+            <DockPanel x:Name="BackPanel" Grid.Row="0" HorizontalAlignment="Left" />
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="0" Margin="12">
-                <Label>Завтрак</Label>
-                <ComboBox Name="BreakfastSelector"
+            <StackPanel Grid.Row="1" Margin="12 0">
+                <Label>Количество людей</Label>
+                <TextBox 
+                    Name="PeopleCount"
+                    Padding="6,7,6,7" 
+                    BorderBrush="#FFCED4DA">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                        <validator:BindingProxy Data="{Binding}" x:Key="proxy"/>
+                    </TextBox.Resources>
+                    <TextBox.Text>
+                        <Binding Path="PeopleCount.Value" UpdateSourceTrigger="PropertyChanged"  ValidatesOnDataErrors="True">
+                            <Binding.ValidationRules>
+                                <validator:TextBoxValidator>
+                                    <validator:TextBoxValidator.Wrapper>
+                                        <validator:Wrapper Validators="{Binding Path=Data.PeopleCount.Validators, Source={StaticResource proxy}}"/>
+                                    </validator:TextBoxValidator.Wrapper>
+                                </validator:TextBoxValidator>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+
+            </StackPanel>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="12">
+                    <Label>Завтрак</Label>
+                    <ComboBox Name="BreakfastSelector"
+                            SelectedValue="{Binding Path=Breakfast}"
                             Padding="6,9,6,7" 
                             SelectedValuePath="Name" 
                             VerticalAlignment="Bottom" 
                             HorizontalAlignment="Stretch"/>
 
-            </StackPanel>
-            <StackPanel Grid.Column="1" Margin="12">
-                <Label>Обед</Label>
-                <ComboBox Name="LunchSelector"
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="12">
+                    <Label>Обед</Label>
+                    <ComboBox Name="LunchSelector"
+                            SelectedValue="{Binding Path=Lunch}"
                             Padding="6,9,6,7" 
                             SelectedValuePath="Name" 
                             VerticalAlignment="Bottom" 
                             HorizontalAlignment="Stretch"/>
-            </StackPanel>
-            <StackPanel Grid.Column="2" Margin="12">
-                <Label>Ужин</Label>
-                <ComboBox Name="DinnerSelector"
+                </StackPanel>
+                <StackPanel Grid.Column="2" Margin="12">
+                    <Label>Ужин</Label>
+                    <ComboBox Name="DinnerSelector"
                             Padding="6,9,6,7" 
                             SelectedValuePath="Name" 
                             VerticalAlignment="Bottom" 
+                            SelectedValue="{Binding Path=Dinner}"
                             HorizontalAlignment="Stretch"/>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Margin="12" HorizontalAlignment="Center">
+                    <Label>Калорийность</Label>
+                    <TextBlock x:Name="TotalCalories" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="12" HorizontalAlignment="Center">
+                    <Label>Жиры</Label>
+                    <TextBlock x:Name="TotalFats" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Grid.Column="2" Margin="12" HorizontalAlignment="Center">
+                    <Label>Белки</Label>
+                    <TextBlock x:Name="TotalProteins" HorizontalAlignment="Center"/>
+                </StackPanel>
+                <StackPanel Grid.Column="3" Margin="12" HorizontalAlignment="Center">
+                    <Label>Углеводы</Label>
+                    <TextBlock x:Name="TotalCarbonohydrates" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Row="4" Margin="12 0">
+                <Label>Используемые ингридиенты</Label>
+                <DataGrid x:Name="IngredientsGrid" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название" Binding="{Binding Path=Name}" Width="90" />
+                        <DataGridTextColumn Header="Количество" Binding="{Binding Path=Quantity}" Width="80" />
+                        <DataGridTextColumn Header="Цена" Binding="{Binding Path=Price}" Width="50" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </StackPanel>
+
+            <DockPanel Grid.Row="5" Margin="12 0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Cursor="Hand"
+                            Width="125"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Top" 
+                            Click="SaveDayRecipes">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border CornerRadius="4"
+                                        Background="#00897b"
+                                        Padding="12,8,12,8" BorderBrush="#FF00897B">
+                                <TextBlock Text="Сохранить"
+                                               Foreground="White"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"
+                                    />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </DockPanel>
         </Grid>
-
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-
-            <StackPanel Grid.Column="0" Margin="12" HorizontalAlignment="Center">
-                <Label>Калорийность</Label>
-                <TextBlock x:Name="TotalCalories" Text="0" HorizontalAlignment="Center"/>
-            </StackPanel>
-            <StackPanel Grid.Column="1" Margin="12" HorizontalAlignment="Center">
-                <Label>Жиры</Label>
-                <TextBlock x:Name="TotalFats" Text="0" HorizontalAlignment="Center"/>
-            </StackPanel>
-            <StackPanel Grid.Column="2" Margin="12" HorizontalAlignment="Center">
-                <Label>Белки</Label>
-                <TextBlock x:Name="TotalProteinst" Text="0" HorizontalAlignment="Center"/>
-            </StackPanel>
-            <StackPanel Grid.Column="3" Margin="12" HorizontalAlignment="Center">
-                <Label>Углеводы</Label>
-                <TextBlock x:Name="TotalCarbonohydrates" Text="0" HorizontalAlignment="Center"/>
-            </StackPanel>
-        </Grid>
-    </Grid>
+    </ScrollViewer>
 </local:AbstractPageController>

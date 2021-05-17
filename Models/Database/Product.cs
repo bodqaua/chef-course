@@ -31,5 +31,16 @@ namespace Chef.Models
             };
             return product;
         }
+
+        public static Product CreateCopy(Product product)
+        {
+            return new Product
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Quantity = product.Quantity,
+                Price = product.Price,
+            };
+        }
     }
 }
