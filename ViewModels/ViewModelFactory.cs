@@ -1,5 +1,6 @@
 ﻿using Chef.Models.Database;
 using Chef.Shared;
+using Chef.ViewModels.Pages;
 using Chef.ViewModels.Recipe;
 using Chef.ViewModels.WarehouseAdd;
 using Chef.ViewModels.WarehouseEdit;
@@ -22,6 +23,11 @@ namespace Chef.ViewModels
             this.validationController = validationController;
             this.productService = productService;
             this.recipeService = recipeService;
+        }
+
+        public HomeViewModel createHomePage()
+        {
+            return new HomeViewModel(this);
         }
         public WarehouseViewModel createWarehousePage()
         {

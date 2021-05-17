@@ -38,6 +38,7 @@ namespace Chef.ViewModels.Recipe
             this.DataContext = this.formGroup;
             this.Init(this);
             InitializeComponent();
+            this.InitBackNavigation(this.viewModelFactory.createRecipeListPage(), BackPanel);
             this.getIngredients();
         }
 

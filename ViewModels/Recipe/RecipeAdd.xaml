@@ -16,6 +16,7 @@
 
         <ScrollViewer>
             <StackPanel Grid.Row="0" Margin="12">
+                <DockPanel x:Name="BackPanel" HorizontalAlignment="Left" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>

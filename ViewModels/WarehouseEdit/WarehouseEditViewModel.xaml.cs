@@ -9,24 +9,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Chef.ViewModels.WarehouseEdit
 {
     /// <summary>
     /// Interaction logic for WarehouseEditViewModel.xaml
     /// </summary>
-    public partial class WarehouseEditViewModel : Page
+    public partial class WarehouseEditViewModel : AbstractPageController
     {
 
         private ProductService productService;
@@ -43,7 +36,9 @@ namespace Chef.ViewModels.WarehouseEdit
             this.viewModelFactory = viewModelFactory;
             this.validationController = validationController;
             this.DataContext = this.formGroup;
+            this.Init(this);
             InitializeComponent();
+            this.InitBackNavigation(this.viewModelFactory.createWarehousePage(), BackPanel);
             this.initBindings();
             this.loadProducts();
         }

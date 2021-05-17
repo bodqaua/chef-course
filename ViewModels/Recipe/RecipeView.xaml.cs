@@ -33,6 +33,7 @@ namespace Chef.ViewModels.Recipe
 
             this.Init(this);
             InitializeComponent();
+            this.InitBackNavigation(this.viewModelFactory.createRecipeListPage(), BackPanel);
             this.LoadRecipe();
         }
 

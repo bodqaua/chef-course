@@ -1,27 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Chef.Interfaces;
 using Chef.Models;
 using Chef.Models.Database;
-using Chef.ViewModels;
+using Chef.Shared;
 
 namespace Chef.ViewModels
 {
-    public partial class WarehouseViewModel : Page
+    public partial class WarehouseViewModel : AbstractPageController
     {
         private DatabaseContext databaseContext;
         private ViewModelFactory viewModelFactory;
@@ -32,6 +18,8 @@ namespace Chef.ViewModels
             InitializeComponent();
             this.databaseContext = databaseContext;
             this.viewModelFactory = viewModelFactory;
+            this.Init(this);
+            this.InitBackNavigation(this.viewModelFactory.createHomePage(), BackPanel);
             this.loadProducts();
         }
         private void loadProducts()

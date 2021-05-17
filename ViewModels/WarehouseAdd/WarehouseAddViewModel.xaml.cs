@@ -25,7 +25,7 @@ namespace Chef.ViewModels.WarehouseAdd
     /// <summary>
     /// Interaction logic for WarehouseAddViewModel.xaml
     /// </summary>
-    public partial class WarehouseAddViewModel : Page
+    public partial class WarehouseAddViewModel : AbstractPageController
     {
         private ProductService productService;
         private ViewModelFactory viewModelFactory;
@@ -39,7 +39,9 @@ namespace Chef.ViewModels.WarehouseAdd
             this.productService = productService;
             this.viewModelFactory = viewModelFactory;
             this.validationController = validationController;
+            this.Init(this);
             InitializeComponent();
+            this.InitBackNavigation(this.viewModelFactory.createWarehousePage(), BackPanel);
             this.DataContext = this.formGroup;
         }
 

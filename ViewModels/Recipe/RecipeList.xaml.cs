@@ -1,5 +1,6 @@
 ﻿using Chef.Models;
 using Chef.Models.Database;
+using Chef.Shared;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -10,7 +11,7 @@ namespace Chef.ViewModels.Recipe
     /// <summary>
     /// Interaction logic for RecipeList.xaml
     /// </summary>
-    public partial class RecipeList : Page
+    public partial class RecipeList : AbstractPageController
     {
         private readonly RecipeService recipeService;
         private readonly ViewModelFactory viewModelFactory;
@@ -22,7 +23,9 @@ namespace Chef.ViewModels.Recipe
         {
             this.recipeService = recipeService;
             this.viewModelFactory = viewModelFactory;
+            this.Init(this);
             InitializeComponent();
+            this.InitBackNavigation(this.viewModelFactory.createHomePage(), BackPanel);
             this.LoadRecipes();
         }
 
