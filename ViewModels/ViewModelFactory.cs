@@ -66,12 +66,12 @@ namespace Chef.ViewModels
 
         public RecipeDayCounter createRecipeDayCounter()
         {
-            return new RecipeDayCounter(this.recipeService, this.productService, this);
+            return new RecipeDayCounter(this.recipeService, this.productService, this, this.validationController);
         }
 
-        //public RecipeEveningCounter createRecipeEveningCounter()
-        //{
-        //    return new RecipeEveningCounter(this.recipeService, this.productService, this);
-        //}
+        public RecipeEveningCounter createRecipeEveningCounter()
+        {
+            return new RecipeEveningCounter(this.recipeService, this.productService, this, this.validationController);
+        }
     }
 }

@@ -25,7 +25,7 @@ namespace Chef.Validators.InputValidators
 
         public override string getMessage()
         {
-            return "Number must be less than " + this.max;
+            return "Число должно быть не более чем " + this.max;
         }
     }
 }

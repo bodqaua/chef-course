@@ -16,7 +16,7 @@ namespace Chef.Validators.InputValidators
 
         public override string getMessage()
         {
-            return "This field is required";
+            return "Обязательное поле";
         }
     }
 }

@@ -20,17 +20,20 @@ namespace Chef.ViewModels.Pages
         private readonly ViewModelFactory viewModelFactory;
         private readonly RecipeService recipeService;
         private readonly ProductService productService;
+        private readonly ValidationController validationController;
         private readonly IngredientData ingredientData;
 
         private List<RecipeEntity> recipes;
         public RecipeDayCounter(
             RecipeService recipeService,
             ProductService productService,
-            ViewModelFactory viewModelFactory)
+            ViewModelFactory viewModelFactory,
+            ValidationController validationController)
         {
             this.recipeService = recipeService;
             this.productService = productService;
             this.viewModelFactory = viewModelFactory;
+            this.validationController = validationController;
             InitializeComponent();
             this.ingredientData = new IngredientData(this.recipeService, this.productService, IngredientsGrid, TotalCalories, TotalFats, TotalProteins, TotalCarbonohydrates);
             this.DataContext = ingredientData;
@@ -64,8 +67,28 @@ namespace Chef.ViewModels.Pages
 
         private void SaveDayRecipes(object sender, RoutedEventArgs e)
         {
+            if (!this.validationController.isFormValid(this, this.ingredientData.controls))
+            {
+                return;
+            }
+
+            if (!this.ingredientData.IsAllRecipesSelected())
+            {
+                MessageBox.Show("Выберите все блюда!");
+                return;
+            }
+
+
             List<Product> products =  this.ingredientData.GetProductsToFetchWarehouse();
-            this.productService.CheckStocks(products);
+            bool isStocksCorrect = this.productService.CheckStocks(products);
+            if (!isStocksCorrect)
+            {
+                MessageBox.Show("Недостаточно запасов, пополните на складе!");
+                return;
+            }
+            this.productService.SubstractProducts(products);
+            MessageBox.Show("Склад обновлен");
+            this.Redirect(this.viewModelFactory.createHomePage());
         }
 
         public class IngredientData
@@ -75,6 +98,7 @@ namespace Chef.ViewModels.Pages
             public double TotalProteins { get; set; }
             public double TotalCarbonohydrates { get; set; }
 
+            public List<ITextBoxGroup> controls = new List<ITextBoxGroup>();
             private RecipeEntity BreakfastEntity;
             private RecipeEntity LunchEntity;
             private RecipeEntity DinnerEntity;
@@ -114,6 +138,8 @@ namespace Chef.ViewModels.Pages
                 this.SetElementText(this.FatsElement, 0);
                 this.SetElementText(this.ProteinsElement, 0);
                 this.SetElementText(this.CarbonohydratesElement, 0);
+
+                this.controls.Add(this.PeopleCount);
             }
 
             public int Breakfast
@@ -193,6 +219,7 @@ namespace Chef.ViewModels.Pages
                     Product product = this.productService.GetProductByName(ingredient.Name);
                     if (product != null)
                     {
+                        product.Quantity = ingredient.Quantity * Convert.ToInt32(this.PeopleCount.Value);
                         this.IngredientsGrid.Items.Add(product);
                     }
                 }
@@ -213,10 +240,16 @@ namespace Chef.ViewModels.Pages
                 return products;
             }
 
+            public bool IsAllRecipesSelected()
+            {
+                this.CalculateNutrition();
+                return this.DinnerEntity != null && this.LunchEntity != null && this.BreakfastEntity != null;
+            }
+
             public ITextBoxGroup PeopleCount { get; set; } = new TextBoxGroup
             {
                 Name = "PeopleCount",
-                Value = "",
+                Value = "1",
                 Validators = new List<AbstractValidator>()
                 {
                     new RequiredValidator(),

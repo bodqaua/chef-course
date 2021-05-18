@@ -133,6 +133,7 @@
             <DockPanel Grid.Row="5" Margin="12 0" HorizontalAlignment="Right" VerticalAlignment="Center">
                 <Button Cursor="Hand"
                             Width="125"
+                            Margin="0 12"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Top" 
                             Click="SaveDayRecipes">

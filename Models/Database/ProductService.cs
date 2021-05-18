@@ -75,19 +75,39 @@ namespace Chef.Models.Database
 
         public Product GetProductByName(string name)
         {
-            return this.db.Products
+            return Product.CreateCopy(this.db.Products
                 .Where(p => p.Name.ToLower().Trim() == name.ToLower().Trim())
-                .FirstOrDefault();
+                .FirstOrDefault());
         }
 
         public bool CheckStocks(List<Product> products)
         {
             List<Product> uniqProducts = this.SortUniqList(products);
-            return false;
+            foreach(Product product in uniqProducts)
+            {
+                Product dbProduct = this.GetProductByName(product.Name);
+                if (product.Quantity > dbProduct.Quantity)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public void SubstractProducts(List<Product> products)
+        {
+            List<Product> uniqProducts = this.SortUniqList(products);
+            foreach (Product product in uniqProducts)
+            {
+                Product dbProduct = this.GetProductByName(product.Name);
+                dbProduct.Quantity -= product.Quantity;
+                this.updateProduct(dbProduct.Id, dbProduct);
+            }
         }
 
         private List<Product> SortUniqList(List<Product> products)
         {
+            products = products.Select(p => Product.CreateCopy(p)).ToList();
             List<Product> list = new List<Product>();
 
             while(products.Count != 0)
