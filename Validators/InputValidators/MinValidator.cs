@@ -29,4 +29,5 @@ namespace Chef.Validators.InputValidators
             return "Число должно быть не менее чем " + this.min;
         }
     }
+
 }

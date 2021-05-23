@@ -231,7 +231,7 @@ namespace Chef.ViewModels.Recipe
             Value = "",
             Validators = new List<AbstractValidator>()
             {
-                new RequiredValidator()
+                new RequiredValidator(),
             }
         };
 

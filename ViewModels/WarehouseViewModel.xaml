@@ -23,9 +23,9 @@
                   IsReadOnly="True"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
-                <DataGridTextColumn Binding="{Binding Price}" Header="Price"/>
-                <DataGridTextColumn Binding="{Binding Quantity}" Header="Quantity"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Название"/>
+                <DataGridTextColumn Binding="{Binding Price}" Header="Цена"/>
+                <DataGridTextColumn Binding="{Binding Quantity}" Header="Количество"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="addStuffs" 

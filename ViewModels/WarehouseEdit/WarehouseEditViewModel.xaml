@@ -207,9 +207,9 @@
                   Name="WarehouseDataGrid" 
                   AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn IsReadOnly="True" Width="132" Binding="{Binding Name}" Header="Name"/>
-                    <DataGridTextColumn IsReadOnly="True" Width="132" Binding="{Binding Price}" Header="Price"/>
-                    <DataGridTextColumn IsReadOnly="True" Width="132" Binding="{Binding Quantity}" Header="Quantity"/>
+                    <DataGridTextColumn IsReadOnly="True" Width="132" Binding="{Binding Name}" Header="Название"/>
+                    <DataGridTextColumn IsReadOnly="True" Width="132" Binding="{Binding Price}" Header="Цена"/>
+                    <DataGridTextColumn IsReadOnly="True" Width="132" Binding="{Binding Quantity}" Header="Количество"/>
                 </DataGrid.Columns>
                 <DataGrid.ItemContainerStyle>
                     <Style TargetType="DataGridRow">

@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Chef.Models.Product">
+    <Position X="2.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAgAAAQAAAAAAAAAAAAQAAAAAAAAAAABAgIAAAAA=</HashCode>
+      <FileName>Models\Database\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chef.Models.RecipeEntity">
+    <Position X="2.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAAAAgAAAAAAAAADwAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Database\Recipe.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Images" />
+      <Property Name="Ingredients" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Chef.Models.Database.DatabaseContext">
+    <Position X="5.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAIAAAEAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Models\Database\DatabaseContext.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Products" />
+      <Property Name="Recipes" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Chef.Models.Database.ProductService">
+    <Position X="4.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAigACCQAAAAAAAAAAAACAAAAAAQAAAAIAAACAA=</HashCode>
+      <FileName>Models\Database\ProductService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="db" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Chef.Models.Database.RecipeService">
+    <Position X="6" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAABAAACAAAAABAAAAAAAAAAAAAAAAAAgABAEAAA=</HashCode>
+      <FileName>Models\Database\RecipeService.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="databaseContext" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Chef.Models.Entities.DbImage" Collapsed="true">
+    <Position X="0.5" Y="1.25" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Entities\Ingredient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chef.Models.Entities.Ingredient">
+    <Position X="0.5" Y="2" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\Entities\Ingredient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Microsoft.EntityFrameworkCore.DbSet&lt;TEntity&gt;">
+    <Position X="2.5" Y="1" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Chef.ViewModels.Pages.HomeViewModel" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Pages\HomeViewModel.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="viewModelFactory" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Chef.ViewModels.Pages.RecipeDayCounter" BaseTypeListCollapsed="true">
+    <Position X="12" Y="3" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Chef.ViewModels.Pages.RecipeDayCounter.IngredientData" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ViewModels\Pages\RecipeDayCounter.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CAAAAAAEEAAAAABgCAAAAAAACAAAACAAEAAAAABAAAA=</HashCode>
+      <FileName>ViewModels\Pages\RecipeDayCounter.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="validationController" />
+      <Field Name="viewModelFactory" />
+      <Field Name="recipeService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Chef.ViewModels.ViewModelFactory">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAEAACAIABABAgAAABAAAABAABAEAEAAgAEAAA=</HashCode>
+      <FileName>ViewModels\ViewModelFactory.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="validationController" />
+      <Field Name="recipeService" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Chef.Shared.ValidationController">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAACAAAAAACAAAAAAAAAAEAA=</HashCode>
+      <FileName>Shared\ValidationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chef.ViewModels.Recipe.RecipeAdd" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAEAAAAAABAASAhAACAUACAAAEAEAAEBAAAAAA=</HashCode>
+      <FileName>ViewModels\Recipe\RecipeAdd.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="recipeService" />
+      <Field Name="productService" />
+      <Field Name="viewModelFactory" />
+      <Field Name="validationController" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Chef.ViewModels.Recipe.RecipeEdit" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="3.25" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Chef.ViewModels.Recipe.RecipeEdit.FormGroup" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ViewModels\Recipe\RecipeEdit.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CCQAAIAEAAAAYABAIAAgCAAAUACQAAEAAAAEBAAAAAA=</HashCode>
+      <FileName>ViewModels\Recipe\RecipeEdit.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="recipeService" />
+      <Field Name="viewModelFactory" />
+      <Field Name="productService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Chef.ViewModels.Recipe.RecipeList" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAgAAAEAAAAABAgAAAAAAAAAAAAACAAAAAAABAAAAA=</HashCode>
+      <FileName>ViewModels\Recipe\RecipeList.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="recipeService" />
+      <Field Name="viewModelFactory" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Chef.ViewModels.Recipe.RecipeView" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="16" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAABAAAEAAAAQAAAAAAACAAAAAABAAEAAAAAABAAAAA=</HashCode>
+      <FileName>ViewModels\Recipe\RecipeView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="recipeService" />
+      <Field Name="viewModelFactory" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Chef.ViewModels.WarehouseAdd.WarehouseAddViewModel" Collapsed="true">
+    <Position X="13.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAIBAAAAAAAAAAECAAACEEAAABAAAAAA=</HashCode>
+      <FileName>ViewModels\WarehouseAdd\WarehouseAddViewModel.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="viewModelFactory" />
+      <Field Name="validationController" />
+      <Field Name="productService" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Chef.ViewModels.WarehouseEdit.WarehouseEditViewModel" Collapsed="true">
+    <Position X="13.75" Y="4" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Chef.ViewModels.WarehouseEdit.WarehouseEditViewModel.FormGroup" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ViewModels\WarehouseEdit\WarehouseEditViewModel.xaml.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CAAIAAAAAIAABABAAAAAAAAACACAAAAAEAQABAACAAE=</HashCode>
+      <FileName>ViewModels\WarehouseEdit\WarehouseEditViewModel.xaml.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="productService" />
+      <Field Name="validationController" />
+      <Field Name="viewModelFactory" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

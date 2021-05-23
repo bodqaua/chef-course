@@ -8,17 +8,6 @@ namespace Chef.Models.Database
         public DbSet<Product> Products { get; set; }
         public DbSet<RecipeEntity> Recipes { get; set; }
 
-        public DatabaseContext()
-        {
-            //try
-            //{
-            //    Database.Migrate();
-            //} catch{
-            //    Database.EnsureDeleted();
-            //    Database.EnsureCreated();
-            //}
-        }
-        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
