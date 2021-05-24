@@ -15,6 +15,7 @@ namespace Chef.Models.Database
         {
             this.db = databaseContext;
         }
+        // ProductService.cs
         public DbSet<Product> loadProducts()
         {
             return this.db.Products;

@@ -8,24 +8,97 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RecipeEveningCounter">
 
-    <Grid Background="#FFFFFF">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="64"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
+    <ScrollViewer>
+        <Grid Background="#FFFFFF" Margin="0 0 0 24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="64"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-        <DockPanel Grid.Row="0" x:Name="BackPanel" HorizontalAlignment="Left"/>
+            <DockPanel Grid.Row="0" x:Name="BackPanel" HorizontalAlignment="Left"/>
 
-        <StackPanel Grid.Row="1" Margin="12 0" HorizontalAlignment="Left">
-            <Label>Рецепты:</Label>
-            <ComboBox Name="RecipesSelector"
+            <StackPanel Grid.Row="1" Margin="12 0">
+                <Label>Рецепты:</Label>
+                <ComboBox Name="RecipesSelector"
                             Padding="6,9,6,7"
-                            Width="250"
                             SelectedValuePath="Name" 
                             VerticalAlignment="Bottom" 
-                            HorizontalAlignment="Stretch"/>
-        </StackPanel>
-    </Grid>
+                            HorizontalAlignment="Stretch" SelectionChanged="RecipesSelector_SelectionChanged"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Margin="12 0">
+                <Label>Рецепты</Label>
+                <ListView Name="RecipeList">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Width="350" Header="Название" DisplayMemberBinding="{Binding Path=Recipe.Name}"/>
+                            <GridViewColumn Width="150" Header="Действие">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0 6">
+                                            <Button Click="DeleteRecipe"
+                                                        Width="150"
+                                                        Tag="{Binding Path=ListId}"
+                                                        Cursor="Hand"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center">
+                                                <Button.Template>
+                                                    <ControlTemplate>
+                                                        <Border CornerRadius="4"
+                                                                    Background="#FFF44336"
+                                                                    Padding="12,8,12,8"
+                                                                    BorderBrush="#FFF44336">
+                                                            <TextBlock Text="Удалить"
+                                                                        Foreground="White"
+                                                                        VerticalAlignment="Center"
+                                                                        HorizontalAlignment="Center"
+                                                               />
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+            <StackPanel Grid.Row="3" Margin="12 0">
+                <Label>Используемые ингридиенты</Label>
+                <DataGrid x:Name="IngredientsGrid" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название" Binding="{Binding Path=Product.Name}" Width="90" />
+                        <DataGridTextColumn Header="Количество" Binding="{Binding Path=Product.Quantity}" Width="80" />
+                        <DataGridTextColumn Header="Цена" Binding="{Binding Path=Product.Price}" Width="50" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+            <DockPanel Grid.Row="4" HorizontalAlignment="Right">
+                <Button x:Name="saveHandler"
+                    Cursor="Hand"
+                    Width="120"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center" 
+                    Margin="12" Click="saveHandler_Click">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border CornerRadius="4"
+                            Background="#00897b"
+                            Padding="12,8,12,8" BorderBrush="#FF00897B">
+                                <TextBlock Text="Подтвердить"
+                                   Foreground="White"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </DockPanel>
+        </Grid>
+    </ScrollViewer>
 </local:AbstractPageController>

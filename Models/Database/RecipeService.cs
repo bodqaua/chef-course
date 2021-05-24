@@ -45,8 +45,8 @@ namespace Chef.Models.Database
                 .ToList();
         }
 
-        public RecipeEntity getRecipeById(int recipeId)
-        {
+        public RecipeEntity getRecipeById(int recipeId) 
+        { // RecipeService.cs
             return this.databaseContext.Recipes
                 .Where(r => r.Id == recipeId)
                 .Include(r => r.Ingredients)
